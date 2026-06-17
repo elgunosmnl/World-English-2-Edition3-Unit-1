@@ -5,934 +5,582 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>World English 2 — Unit 1: Food for Life</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0f1a0f;--surface:#162016;--card:#1c2b1c;
+  --accent:#7ed957;--accent2:#c8f59a;--text:#e8f5e8;
+  --muted:#7a9b7a;--border:#2a3d2a;--hover:#243824;
+  --tag-bg:#1f3320;--red:#ff6b6b;--red-bg:#2d1212;--green-bg:#122d12;
+  --sw:240px;
+}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;min-height:100vh;display:flex;flex-direction:column;}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── HEADER ── */
+header{background:linear-gradient(135deg,#0f2410,#162e12 60%,#1a3a14);border-bottom:1px solid var(--border);padding:22px 24px 18px;display:flex;align-items:center;gap:16px;position:relative;overflow:hidden;flex-shrink:0;}
+header::after{content:'🌿';position:absolute;font-size:120px;opacity:.05;right:-10px;top:-15px;}
+.logo{font-family:'Sora',sans-serif;font-size:clamp(16px,3vw,22px);font-weight:700;color:var(--accent2);line-height:1.2;}
+.logo span{display:block;font-size:11px;font-weight:400;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:2px;}
+.header-stats{display:flex;gap:20px;margin-left:auto;}
+.hstat{text-align:center;}
+.hstat-n{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:var(--accent);}
+.hstat-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;}
+.mob-btn{display:none;background:var(--accent);color:#0a1a0a;border:none;border-radius:8px;padding:8px 14px;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;}
 
-  :root {
-    --bg: #0f1a0f;
-    --surface: #162016;
-    --card: #1c2b1c;
-    --accent: #7ed957;
-    --accent2: #c8f59a;
-    --text: #e8f5e8;
-    --muted: #7a9b7a;
-    --border: #2a3d2a;
-    --hover: #243824;
-    --tag-bg: #1f3320;
-    --modal-bg: rgba(10,20,10,0.92);
-  }
+/* ── LAYOUT ── */
+.layout{display:flex;flex:1;min-height:0;}
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Space Grotesk', sans-serif;
-    min-height: 100vh;
-    padding-bottom: 60px;
-  }
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sw);min-width:var(--sw);background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;}
+.sb-group{padding:16px 0 4px;}
+.sb-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);padding:0 16px 6px;}
+.sb-item{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;color:var(--muted);font-size:13px;font-weight:500;border-left:3px solid transparent;transition:all .15s;user-select:none;}
+.sb-item:hover{background:var(--hover);color:var(--text);}
+.sb-item.active{background:var(--hover);color:var(--accent);border-left-color:var(--accent);font-weight:700;}
+.sb-item .ico{font-size:15px;width:18px;text-align:center;}
+.sb-div{height:1px;background:var(--border);margin:8px 14px;}
 
-  header {
-    background: linear-gradient(135deg, #0f2410 0%, #162e12 60%, #1a3a14 100%);
-    border-bottom: 1px solid var(--border);
-    padding: 36px 24px 28px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  header::before {
-    content: '🌿';
-    position: absolute;
-    font-size: 140px;
-    opacity: 0.06;
-    top: -20px; left: -30px;
-    transform: rotate(-15deg);
-  }
-  header::after {
-    content: '🍽️';
-    position: absolute;
-    font-size: 120px;
-    opacity: 0.05;
-    bottom: -20px; right: -10px;
-    transform: rotate(10deg);
-  }
+/* ── MAIN ── */
+.main{flex:1;overflow-y:auto;display:flex;flex-direction:column;}
+.page{display:none;flex:1;padding:24px 24px 60px;}
+.page.active{display:block;}
 
-  .unit-tag {
-    display: inline-block;
-    background: var(--accent);
-    color: #0a1a0a;
-    font-family: 'Sora', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 20px;
-    margin-bottom: 14px;
-  }
+/* ── VOCAB PAGE ── */
+.vocab-top{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.search-box{flex:1;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:14px;padding:10px 14px 10px 40px;outline:none;transition:border-color .2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='7' stroke='%237a9b7a' stroke-width='2'/%3E%3Cpath d='m20 20-3-3' stroke='%237a9b7a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:12px center;}
+.search-box:focus{border-color:var(--accent);}
+.search-box::placeholder{color:var(--muted);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;}
+.word-card{background:var(--card);border:1.5px solid var(--border);border-radius:13px;padding:16px 14px;cursor:pointer;transition:transform .17s,border-color .17s,background .17s;position:relative;overflow:hidden;}
+.word-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);opacity:0;transition:opacity .17s;}
+.word-card:hover{transform:translateY(-3px);border-color:var(--accent);background:var(--hover);}
+.word-card:hover::before{opacity:1;}
+.w-en{font-family:'Sora',sans-serif;font-size:17px;font-weight:700;color:var(--accent2);margin-bottom:3px;}
+.w-pos{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;}
+.w-az{font-size:13px;color:var(--text);line-height:1.4;}
+.w-hint{font-size:11px;color:var(--muted);margin-top:7px;font-style:italic;}
+.cat-badge{position:absolute;top:9px;right:9px;background:var(--tag-bg);color:var(--accent);font-size:10px;font-weight:700;padding:2px 7px;border-radius:9px;}
+.no-results{text-align:center;color:var(--muted);padding:60px 20px;font-size:15px;display:none;}
 
-  h1 {
-    font-family: 'Sora', sans-serif;
-    font-size: clamp(26px, 5vw, 42px);
-    font-weight: 700;
-    color: var(--accent2);
-    line-height: 1.15;
-    margin-bottom: 8px;
-  }
+/* ── MODAL ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(10,20,10,.92);backdrop-filter:blur(6px);z-index:300;align-items:center;justify-content:center;padding:20px;}
+.overlay.open{display:flex;}
+.modal{background:var(--card);border:1.5px solid var(--accent);border-radius:18px;max-width:500px;width:100%;padding:28px 24px;position:relative;animation:popIn .2s ease;}
+@keyframes popIn{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-x{position:absolute;top:14px;right:16px;background:var(--surface);border:1.5px solid var(--border);color:var(--muted);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.modal-x:hover{border-color:var(--accent);color:var(--accent);}
+.m-word{font-family:'Sora',sans-serif;font-size:30px;font-weight:700;color:var(--accent);}
+.m-pos{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;}
+.m-az{font-size:18px;color:var(--text);padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:14px;}
+.m-sl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px;}
+.sent{background:var(--surface);border-left:3px solid var(--accent);border-radius:0 7px 7px 0;padding:9px 13px;margin-bottom:8px;font-size:13px;line-height:1.6;}
+.sent em{color:var(--accent);font-style:normal;font-weight:600;}
 
-  .subtitle {
-    color: var(--muted);
-    font-size: 14px;
-    letter-spacing: 0.04em;
-  }
+/* ── GRAMMAR PAGE ── */
+.g-card{background:var(--card);border:1.5px solid var(--border);border-radius:15px;padding:24px 20px;margin-bottom:18px;}
+.g-card h2{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:var(--accent);margin-bottom:4px;}
+.g-use{font-size:12px;color:var(--muted);margin-bottom:14px;font-style:italic;}
+.g-sec{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin:18px 0 8px;}
+.formula{background:var(--tag-bg);border-left:3px solid var(--accent);border-radius:0 7px 7px 0;padding:10px 14px;margin:8px 0;font-size:13px;color:var(--accent2);font-family:'Sora',sans-serif;font-weight:600;}
+.rtable{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:13px;}
+.rtable th{background:var(--tag-bg);color:var(--accent);padding:8px 12px;text-align:left;font-size:11px;letter-spacing:.07em;text-transform:uppercase;}
+.rtable td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;}
+.rtable tr:last-child td{border-bottom:none;}
+.rtable .fm{color:var(--accent2);font-weight:600;font-family:'Sora',sans-serif;}
+.rtable .ex{color:var(--muted);font-style:italic;font-size:12px;margin-top:3px;}
+.eg-list{list-style:none;margin-top:8px;}
+.eg-list li{background:var(--surface);border-left:3px solid var(--accent);border-radius:0 7px 7px 0;padding:9px 12px;margin-bottom:7px;font-size:13px;line-height:1.6;}
+.eg-list li .en{color:var(--accent2);font-weight:600;}
+.eg-list li .az{color:var(--muted);font-size:12px;margin-top:2px;}
+.irreg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px;}
+.irreg{background:var(--surface);border:1.5px solid var(--border);border-radius:9px;padding:10px 11px;text-align:center;}
+.irreg .b{font-size:13px;font-weight:700;color:var(--accent2);font-family:'Sora',sans-serif;}
+.irreg .a{color:var(--muted);font-size:12px;margin:2px 0;}
+.irreg .p{font-size:13px;font-weight:700;color:var(--accent);font-family:'Sora',sans-serif;}
+.irreg .s{font-size:10px;color:var(--muted);margin-top:3px;}
 
-  .stats {
-    display: flex;
-    justify-content: center;
-    gap: 28px;
-    margin-top: 20px;
-  }
-  .stat {
-    text-align: center;
-  }
-  .stat-num {
-    font-family: 'Sora', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--accent);
-  }
-  .stat-label {
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
+/* ── QUIZ ── */
+.q-card{background:var(--card);border:1.5px solid var(--border);border-radius:13px;padding:20px;margin-bottom:12px;}
+.q-num{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.q-text{font-size:15px;color:var(--text);margin-bottom:13px;line-height:1.6;}
+.q-text .blank{display:inline-block;min-width:80px;border-bottom:2px solid var(--accent);color:var(--accent);font-weight:700;padding:0 5px;text-align:center;}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.opt{background:var(--surface);border:1.5px solid var(--border);color:var(--text);border-radius:8px;padding:9px 12px;font-size:13px;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all .14s;text-align:left;}
+.opt:hover{border-color:var(--accent);background:var(--hover);}
+.opt.correct{background:var(--green-bg);border-color:var(--accent);color:var(--accent);font-weight:700;}
+.opt.wrong{background:var(--red-bg);border-color:var(--red);color:var(--red);}
+.opt:disabled{cursor:default;}
+.q-fb{margin-top:9px;font-size:12px;padding:8px 12px;border-radius:7px;display:none;line-height:1.5;}
+.q-fb.show{display:block;}
+.q-fb.ok{background:var(--green-bg);color:var(--accent);border-left:3px solid var(--accent);}
+.q-fb.fail{background:var(--red-bg);color:var(--red);border-left:3px solid var(--red);}
+.q-score{background:var(--card);border:1.5px solid var(--accent);border-radius:15px;padding:28px;text-align:center;display:none;margin-top:18px;}
+.q-score.show{display:block;}
+.score-n{font-family:'Sora',sans-serif;font-size:48px;font-weight:700;color:var(--accent);margin-bottom:7px;}
+.score-l{color:var(--muted);font-size:14px;margin-bottom:16px;}
+.rbtn{background:var(--accent);color:#0a1a0a;border:none;border-radius:11px;padding:10px 24px;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;cursor:pointer;}
+.rbtn:hover{opacity:.85;}
 
-  .search-wrap {
-    max-width: 640px;
-    margin: 28px auto 0;
-    padding: 0 20px;
-  }
-  .search-input {
-    width: 100%;
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    color: var(--text);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 15px;
-    padding: 12px 18px 12px 44px;
-    outline: none;
-    transition: border-color 0.2s;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='7' stroke='%237a9b7a' stroke-width='2'/%3E%3Cpath d='m20 20-3-3' stroke='%237a9b7a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: 14px center;
-  }
-  .search-input:focus { border-color: var(--accent); }
-  .search-input::placeholder { color: var(--muted); }
+/* ── FILL ── */
+.f-card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:18px;margin-bottom:11px;}
+.f-num{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.f-sent{font-size:14px;color:var(--text);line-height:1.8;margin-bottom:8px;}
+.f-inp{background:var(--surface);border:1.5px solid var(--border);border-radius:7px;color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:13px;padding:7px 11px;outline:none;transition:border-color .2s;width:140px;}
+.f-inp:focus{border-color:var(--accent);}
+.f-inp.correct{border-color:var(--accent);background:var(--green-bg);color:var(--accent);}
+.f-inp.wrong{border-color:var(--red);background:var(--red-bg);color:var(--red);}
+.f-hint{font-size:11px;color:var(--muted);margin-top:5px;display:none;font-style:italic;}
+.f-hint.show{display:block;}
+.cbtn{background:var(--accent);color:#0a1a0a;border:none;border-radius:9px;padding:10px 20px;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-top:14px;}
+.cbtn:hover{opacity:.85;}
+.f-score{margin-top:13px;font-size:14px;color:var(--accent);display:none;font-weight:700;}
 
-  .category-tabs {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px 20px 0;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .tab {
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    color: var(--muted);
-    border-radius: 20px;
-    padding: 6px 16px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.18s;
-    user-select: none;
-  }
-  .tab.active, .tab:hover {
-    background: var(--accent);
-    color: #0a1a0a;
-    border-color: var(--accent);
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 14px;
-    max-width: 1000px;
-    margin: 28px auto 0;
-    padding: 0 20px;
-  }
-
-  .word-card {
-    background: var(--card);
-    border: 1.5px solid var(--border);
-    border-radius: 14px;
-    padding: 18px 16px;
-    cursor: pointer;
-    transition: transform 0.18s, border-color 0.18s, background 0.18s;
-    position: relative;
-    overflow: hidden;
-  }
-  .word-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--accent);
-    opacity: 0;
-    transition: opacity 0.18s;
-  }
-  .word-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--accent);
-    background: var(--hover);
-  }
-  .word-card:hover::before { opacity: 1; }
-
-  .word-en {
-    font-family: 'Sora', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--accent2);
-    margin-bottom: 4px;
-  }
-  .word-pos {
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 8px;
-  }
-  .word-az {
-    font-size: 14px;
-    color: var(--text);
-    line-height: 1.4;
-  }
-  .word-hint {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 8px;
-    font-style: italic;
-  }
-  .cat-badge {
-    position: absolute;
-    top: 10px; right: 10px;
-    background: var(--tag-bg);
-    color: var(--accent);
-    font-size: 10px;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 10px;
-    letter-spacing: 0.06em;
-  }
-
-  /* Modal */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: var(--modal-bg);
-    backdrop-filter: blur(6px);
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-  .modal-overlay.open { display: flex; }
-
-  .modal {
-    background: var(--card);
-    border: 1.5px solid var(--accent);
-    border-radius: 20px;
-    max-width: 520px;
-    width: 100%;
-    padding: 32px 28px;
-    position: relative;
-    animation: popIn 0.22s ease;
-  }
-  @keyframes popIn {
-    from { transform: scale(0.92); opacity: 0; }
-    to   { transform: scale(1);    opacity: 1; }
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 16px; right: 18px;
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    color: var(--muted);
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s;
-  }
-  .modal-close:hover { border-color: var(--accent); color: var(--accent); }
-
-  .modal-word {
-    font-family: 'Sora', sans-serif;
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 4px;
-  }
-  .modal-pos {
-    font-size: 12px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 6px;
-  }
-  .modal-az {
-    font-size: 20px;
-    color: var(--text);
-    margin-bottom: 20px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .sentences-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    margin-bottom: 12px;
-  }
-
-  .sentence-item {
-    background: var(--surface);
-    border-left: 3px solid var(--accent);
-    border-radius: 0 8px 8px 0;
-    padding: 10px 14px;
-    margin-bottom: 10px;
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--text);
-  }
-  .sentence-item em {
-    color: var(--accent);
-    font-style: normal;
-    font-weight: 600;
-  }
-
-  .no-results {
-    text-align: center;
-    color: var(--muted);
-    padding: 60px 20px;
-    font-size: 16px;
-    display: none;
-  }
-
-  footer {
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    margin-top: 50px;
-    padding: 0 20px;
-  }
+/* ── MOBILE ── */
+@media(max-width:640px){
+  .sidebar{position:fixed;left:-260px;top:0;height:100vh;z-index:200;transition:left .25s;width:var(--sw);}
+  .sidebar.open{left:0;}
+  .mob-btn{display:block;}
+  .header-stats{display:none;}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));}
+  .opts{grid-template-columns:1fr;}
+  .page{padding:16px 14px 50px;}
+}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="unit-tag">World English 2 · Edition 3</div>
-  <h1>Unit 1: Food for Life</h1>
-  <p class="subtitle">Söz üzərinə basaraq nümunə cümlələrə bax · Azerbaijani translations</p>
-  <div class="stats">
-    <div class="stat"><div class="stat-num" id="totalCount">60</div><div class="stat-label">Söz</div></div>
-    <div class="stat"><div class="stat-num">180</div><div class="stat-label">Nümunə cümlə</div></div>
-    <div class="stat"><div class="stat-num">5</div><div class="stat-label">Kateqoriya</div></div>
+  <button class="mob-btn" onclick="document.getElementById('sb').classList.toggle('open')">☰</button>
+  <div class="logo">Unit 1: Food for Life <span>World English 2 · Edition 3</span></div>
+  <div class="header-stats">
+    <div class="hstat"><div class="hstat-n" id="totalCount">60</div><div class="hstat-l">Söz</div></div>
+    <div class="hstat"><div class="hstat-n">180</div><div class="hstat-l">Cümlə</div></div>
+    <div class="hstat"><div class="hstat-n">15</div><div class="hstat-l">Test sualı</div></div>
   </div>
 </header>
 
-<div class="search-wrap">
-  <input class="search-input" type="text" placeholder="Söz axtar... (məs. diet, meal, crop)" id="searchInput">
+<div class="layout">
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar" id="sb">
+
+  <div class="sb-group">
+    <div class="sb-label">📚 Lüğət</div>
+    <div class="sb-item active" onclick="nav('vocab-all',this)"><span class="ico">🌿</span>Hamısı</div>
+    <div class="sb-item" onclick="nav('vocab-food',this)"><span class="ico">🥗</span>Yemək</div>
+    <div class="sb-item" onclick="nav('vocab-nutrition',this)"><span class="ico">🧬</span>Qidalanma</div>
+    <div class="sb-item" onclick="nav('vocab-farming',this)"><span class="ico">🌾</span>Əkinçilik</div>
+    <div class="sb-item" onclick="nav('vocab-cooking',this)"><span class="ico">👩‍🍳</span>Bişirmə</div>
+    <div class="sb-item" onclick="nav('vocab-diet',this)"><span class="ico">💚</span>Pəhriz</div>
+  </div>
+
+  <div class="sb-div"></div>
+
+  <div class="sb-group">
+    <div class="sb-label">📖 Qrammatika</div>
+    <div class="sb-item" onclick="nav('gram-sp',this)"><span class="ico">📘</span>Simple Present</div>
+    <div class="sb-item" onclick="nav('gram-pc',this)"><span class="ico">⏳</span>Present Continuous</div>
+    <div class="sb-item" onclick="nav('gram-past',this)"><span class="ico">⏪</span>Simple Past</div>
+  </div>
+
+  <div class="sb-div"></div>
+
+  <div class="sb-group">
+    <div class="sb-label">✏️ Məşq</div>
+    <div class="sb-item" onclick="nav('fill',this)"><span class="ico">📝</span>Boşluq Doldur</div>
+    <div class="sb-item" onclick="nav('quiz',this)"><span class="ico">🎯</span>Test (15 sual)</div>
+  </div>
+
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<main class="main">
+
+<!-- ── VOCAB PAGE ── -->
+<div class="page active" id="page-vocab">
+  <div class="vocab-top">
+    <input class="search-box" type="text" id="searchInput" placeholder="Söz axtar... məs. diet, meal">
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="no-results" id="noResults">Heç nəyi tapılmadı 🌿</div>
 </div>
 
-<div class="category-tabs">
-  <span class="tab active" onclick="filterCat('all', this)">Hamısı</span>
-  <span class="tab" onclick="filterCat('food', this)">🥗 Yemək</span>
-  <span class="tab" onclick="filterCat('nutrition', this)">🧬 Qidalanma</span>
-  <span class="tab" onclick="filterCat('farming', this)">🌾 Əkinçilik</span>
-  <span class="tab" onclick="filterCat('cooking', this)">👩‍🍳 Bişirmə</span>
-  <span class="tab" onclick="filterCat('diet', this)">💚 Pəhriz</span>
-</div>
-
-<div class="grid" id="grid"></div>
-<div class="no-results" id="noResults">Heç nəyi tapılmadı 🌿</div>
-
-<!-- Modal -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal" id="modal">
-    <button class="modal-close" onclick="closeModalBtn()">✕</button>
-    <div class="modal-word" id="mWord"></div>
-    <div class="modal-pos" id="mPos"></div>
-    <div class="modal-az" id="mAz"></div>
-    <div class="sentences-label">📚 Nümunə cümlələr</div>
-    <div id="mSentences"></div>
+<!-- ── SIMPLE PRESENT ── -->
+<div class="page" id="page-gram-sp">
+  <div class="g-card">
+    <h2>Simple Present — Sadə İndiki Zaman</h2>
+    <div class="g-use">Vərdişlər, ümumi həqiqətlər, həmişə doğru olan şeylər</div>
+    <div class="g-sec">Formullar</div>
+    <div class="formula">➕ S + V(s/es) → She <b>eats</b> vegetables every day.</div>
+    <div class="formula">➖ S + don't/doesn't + V → I <b>don't eat</b> meat.</div>
+    <div class="formula">❓ Do/Does + S + V? → <b>Does</b> she follow a diet?</div>
+    <div class="g-sec">İstifadə qaydaları</div>
+    <table class="rtable">
+      <tr><th>Hal</th><th>Nümunə</th></tr>
+      <tr><td>Vərdiş / Rutin</td><td><span class="fm">I eat</span> breakfast every morning.<div class="ex">Hər səhər səhər yeməyi yeyirəm.</div></td></tr>
+      <tr><td>Ümumi həqiqət</td><td><span class="fm">Fresh vegetables are</span> always available.<div class="ex">Təzə tərəvəzlər həmişə mövcuddur.</div></td></tr>
+      <tr><td>He/She/It → +s/es</td><td><span class="fm">She prepares</span> dinner every evening.<div class="ex">O hər axşam şam yeməyi hazırlayır.</div></td></tr>
+      <tr><td>Mənfi</td><td>I <span class="fm">don't eat</span> meat. / She <span class="fm">doesn't like</span> sugar.</td></tr>
+    </table>
+    <div class="g-sec">Nümunə cümlələr</div>
+    <ul class="eg-list">
+      <li><span class="en">I normally don't eat eggs for breakfast.</span><div class="az">Adətən səhər yeməyinə yumurta yemirəm.</div></li>
+      <li><span class="en">Fresh vegetables are always available at the market.</span><div class="az">Təzə tərəvəzlər həmişə bazarda mövcuddur.</div></li>
+      <li><span class="en">She follows a vegetarian diet.</span><div class="az">O vegetarian pəhrizinə əməl edir.</div></li>
+      <li><span class="en">Do you follow a special diet?</span><div class="az">Xüsusi bir pəhrizə əməl edirsinizmi?</div></li>
+      <li><span class="en">My mother and I prepare a meal together every afternoon.</span><div class="az">Anam və mən hər günorta birlikdə yemək hazırlayırıq.</div></li>
+    </ul>
   </div>
 </div>
 
-<footer>
-  <p>World English 2 · Unit 1 · Söz bazası · Sözün üstünə basaraq cümlələri gör</p>
-</footer>
+<!-- ── PRESENT CONTINUOUS ── -->
+<div class="page" id="page-gram-pc">
+  <div class="g-card">
+    <h2>Present Continuous — İndiki Davamedici Zaman</h2>
+    <div class="g-use">İndi, bu an baş verən hərəkətlər</div>
+    <div class="g-sec">Formullar</div>
+    <div class="formula">➕ S + am/is/are + V-ing → She <b>is cooking</b> right now.</div>
+    <div class="formula">➖ S + am/is/are + not + V-ing → I <b>am not eating</b>.</div>
+    <div class="formula">❓ Am/Is/Are + S + V-ing? → <b>Is</b> she celebrating?</div>
+    <div class="g-sec">am / is / are seçimi</div>
+    <table class="rtable">
+      <tr><th>Şəxs</th><th>Yardımçı fel</th><th>Nümunə</th></tr>
+      <tr><td>I</td><td><span class="fm">am</span></td><td>I <span class="fm">am eating</span> right now.</td></tr>
+      <tr><td>He / She / It</td><td><span class="fm">is</span></td><td>She <span class="fm">is preparing</span> dinner.</td></tr>
+      <tr><td>You / We / They</td><td><span class="fm">are</span></td><td>We <span class="fm">are learning</span> new foods.</td></tr>
+    </table>
+    <div class="g-sec">Simple Present vs Present Continuous</div>
+    <table class="rtable">
+      <tr><th>Vərdiş (Simple Present)</th><th>İndi (Present Continuous)</th></tr>
+      <tr>
+        <td>I <span class="fm">eat</span> lunch at school every day.<div class="ex">Hər gün məktəbdə nahar yeyirəm.</div></td>
+        <td>Right now I <span class="fm">am eating</span> at a restaurant.<div class="ex">İndi restoranda yeyirəm.</div></td>
+      </tr>
+      <tr>
+        <td>She <span class="fm">usually carries</span> a phone.<div class="ex">O adətən telefon gəzdirir.</div></td>
+        <td>Today she <span class="fm">is letting</span> her sister use it.<div class="ex">Bu gün bacısına işlətdirir.</div></td>
+      </tr>
+    </table>
+    <div class="g-sec">Nümunə cümlələr</div>
+    <ul class="eg-list">
+      <li><span class="en">My father is preparing a special dish for tonight's dinner.</span><div class="az">Atam bu axşamkı şam yeməyi üçün xüsusi bir xörək hazırlayır.</div></li>
+      <li><span class="en">I am watching and learning how to make it.</span><div class="az">Mən baxıram və onu necə hazırlayacağımı öyrənirəm.</div></li>
+      <li><span class="en">Is she celebrating her birthday tonight?</span><div class="az">O bu axşam ad gününü qeyd edirmi?</div></li>
+      <li><span class="en">I am eating an apple right now.</span><div class="az">İndi alma yeyirəm.</div></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── SIMPLE PAST ── -->
+<div class="page" id="page-gram-past">
+  <div class="g-card">
+    <h2>Simple Past — Sadə Keçmiş Zaman</h2>
+    <div class="g-use">Keçmişdə tamamlanmış hərəkətlər</div>
+    <div class="g-sec">Formullar</div>
+    <div class="formula">➕ S + V-ed / V2 → She <b>cooked</b> dinner. / They <b>ate</b> pizza.</div>
+    <div class="formula">➖ S + didn't + V → I <b>didn't eat</b> meat.</div>
+    <div class="formula">❓ Did + S + V? → <b>Did</b> you eat breakfast?</div>
+    <div class="g-sec">Regular Verbs — düzgün fellər (-ed)</div>
+    <table class="rtable">
+      <tr><th>Base</th><th>Past</th><th>Azərbaycanca</th></tr>
+      <tr><td>cook</td><td><span class="fm">cooked</span></td><td>bişirmək → bişirdi</td></tr>
+      <tr><td>learn</td><td><span class="fm">learned</span></td><td>öyrənmək → öyrəndi</td></tr>
+      <tr><td>prepare</td><td><span class="fm">prepared</span></td><td>hazırlamaq → hazırladı</td></tr>
+      <tr><td>travel</td><td><span class="fm">traveled</span></td><td>səyahət etmək → etdi</td></tr>
+      <tr><td>try</td><td><span class="fm">tried</span></td><td>sınamaq → sınadı</td></tr>
+    </table>
+    <div class="g-sec">Irregular Verbs — qeyri-düzgün fellər</div>
+    <div class="irreg-grid">
+      <div class="irreg"><div class="b">eat</div><div class="a">↓</div><div class="p">ate</div><div class="s">yemək → yedi</div></div>
+      <div class="irreg"><div class="b">go</div><div class="a">↓</div><div class="p">went</div><div class="s">getmək → getdi</div></div>
+      <div class="irreg"><div class="b">give</div><div class="a">↓</div><div class="p">gave</div><div class="s">vermək → verdi</div></div>
+      <div class="irreg"><div class="b">choose</div><div class="a">↓</div><div class="p">chose</div><div class="s">seçmək → seçdi</div></div>
+      <div class="irreg"><div class="b">buy</div><div class="a">↓</div><div class="p">bought</div><div class="s">almaq → aldı</div></div>
+      <div class="irreg"><div class="b">have</div><div class="a">↓</div><div class="p">had</div><div class="s">olmaq → vardı</div></div>
+      <div class="irreg"><div class="b">make</div><div class="a">↓</div><div class="p">made</div><div class="s">etmək → etdi</div></div>
+      <div class="irreg"><div class="b">meet</div><div class="a">↓</div><div class="p">met</div><div class="s">tanışmaq → tanışdı</div></div>
+      <div class="irreg"><div class="b">be</div><div class="a">↓</div><div class="p">was/were</div><div class="s">olmaq → idi</div></div>
+      <div class="irreg"><div class="b">show</div><div class="a">↓</div><div class="p">showed</div><div class="s">göstərmək → göstərdi</div></div>
+      <div class="irreg"><div class="b">order</div><div class="a">↓</div><div class="p">ordered</div><div class="s">sifariş etmək → etdi</div></div>
+      <div class="irreg"><div class="b">introduce</div><div class="a">↓</div><div class="p">introduced</div><div class="s">tanış etmək → etdi</div></div>
+    </div>
+    <div class="g-sec" style="margin-top:18px">Nümunə cümlələr</div>
+    <ul class="eg-list">
+      <li><span class="en">We learned how to make pizza yesterday.</span><div class="az">Dünən pizza hazırlamağı öyrəndik.</div></li>
+      <li><span class="en">Our class was interesting last week.</span><div class="az">Keçən həftə dərsimiz maraqlı idi.</div></li>
+      <li><span class="en">They went to Athens and met many new people.</span><div class="az">Afinaya getdilər və bir çox yeni insanla tanış oldular.</div></li>
+      <li><span class="en">She ordered seafood and lamb at the restaurant.</span><div class="az">Restoranda dəniz məhsulları və quzu əti sifariş etdi.</div></li>
+      <li><span class="en">My whole family ate my grandmother's spaghetti.</span><div class="az">Bütün ailəm nənəmin spagettisini yedi.</div></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── FILL IN ── -->
+<div class="page" id="page-fill">
+  <div class="g-card" style="margin-bottom:14px">
+    <h2>Boşluq Doldur</h2>
+    <div class="g-use">Feli düzgün formada yazın, sonra "Yoxla" düyməsinə basın</div>
+  </div>
+  <div id="fillContainer"></div>
+  <button class="cbtn" onclick="checkAll()">✅ Hamısını Yoxla</button>
+  <div class="f-score" id="fillScore"></div>
+</div>
+
+<!-- ── QUIZ ── -->
+<div class="page" id="page-quiz">
+  <div class="g-card" style="margin-bottom:14px">
+    <h2>Qrammatika Testi</h2>
+    <div class="g-use">Düzgün cavabı seçin — 15 sual</div>
+  </div>
+  <div id="quizContainer"></div>
+  <div class="q-score" id="quizScore">
+    <div class="score-n" id="scoreNum"></div>
+    <div class="score-l" id="scoreLabel"></div>
+    <button class="rbtn" onclick="buildQuiz()">🔄 Yenidən Başla</button>
+  </div>
+</div>
+
+</main>
+</div>
+
+<!-- ── WORD MODAL ── -->
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal">
+    <button class="modal-x" onclick="document.getElementById('overlay').classList.remove('open')">✕</button>
+    <div class="m-word" id="mWord"></div>
+    <div class="m-pos" id="mPos"></div>
+    <div class="m-az" id="mAz"></div>
+    <div class="m-sl">📚 Nümunə cümlələr</div>
+    <div id="mSents"></div>
+  </div>
+</div>
 
 <script>
-const words = [
-  // FOOD
-  {
-    en: "diet", az: "pəhriz; qida rejimi", pos: "isim", cat: "diet",
-    sentences: [
-      "My <em>diet</em> includes a lot of vegetables and fruit. — Mənim pəhrizim çoxlu tərəvəz və meyvə ehtiva edir.",
-      "A healthy <em>diet</em> can prevent many diseases. — Sağlam qida rejimi bir çox xəstəliklərin qarşısını ala bilər.",
-      "She follows a vegetarian <em>diet</em> because she loves animals. — O, heyvanları sevdiyi üçün vegetarian pəhrizinə əməl edir."
-    ]
-  },
-  {
-    en: "meal", az: "yemək (nahar, şam yemeyi)", pos: "isim", cat: "food",
-    sentences: [
-      "We have three <em>meals</em> a day: breakfast, lunch, and dinner. — Gündə üç dəfə yeyirik: səhər, günorta və axşam yeməyi.",
-      "She always prepares a healthy <em>meal</em> for her family. — O həmişə ailəsi üçün sağlam yemək hazırlayır.",
-      "My favourite <em>meal</em> is lasagna with a green salad. — Ən sevdiyim yemək yaşıl salatla lasagnadır."
-    ]
-  },
-  {
-    en: "dish", az: "xörək; qab", pos: "isim", cat: "food",
-    sentences: [
-      "Couscous is a traditional <em>dish</em> from North Africa. — Kuskus Şimali Afrikadan olan ənənəvi bir xörəkdir.",
-      "My mother makes a delicious <em>dish</em> with chicken and rice. — Anam toyuq və düyü ilə dadlı bir xörək hazırlayır.",
-      "This <em>dish</em> is very popular at weddings in our country. — Bu xörək ölkəmizdə toylarda çox populyardır."
-    ]
-  },
-  {
-    en: "ingredient", az: "inqredient; tərkib hissə", pos: "isim", cat: "cooking",
-    sentences: [
-      "The main <em>ingredients</em> of this soup are tomatoes and onions. — Bu şorbanın əsas inqredientləri pomidor və soğandır.",
-      "Fresh <em>ingredients</em> make your food much tastier. — Təzə inqredientlər yeməyinizi daha dadlı edir.",
-      "Which <em>ingredients</em> do you need to make lasagna? — Lazanya hazırlamaq üçün hansı inqredientlər lazımdır?"
-    ]
-  },
-  {
-    en: "prepare", az: "hazırlamaq", pos: "fel", cat: "cooking",
-    sentences: [
-      "She <em>prepares</em> dinner every evening for her family. — O hər axşam ailəsi üçün şam yeməyi hazırlayır.",
-      "It takes one hour to <em>prepare</em> this dish. — Bu xörəyi hazırlamaq üçün bir saat lazımdır.",
-      "My father is <em>preparing</em> a special meal for tonight. — Atam bu axşam üçün xüsusi bir yemək hazırlayır."
-    ]
-  },
-  {
-    en: "variety", az: "müxtəliflik; çeşid", pos: "isim", cat: "food",
-    sentences: [
-      "Our ancestors ate a wide <em>variety</em> of foods. — Əcdadlarımız geniş çeşiddə qidalar yeyirdilər.",
-      "The market offers a great <em>variety</em> of fresh vegetables. — Bazar təzə tərəvəzlərin böyük çeşidini təklif edir.",
-      "I like <em>variety</em> in my diet, so I try different foods every week. — Pəhrizimdə müxtəlifliyi sevirəm, buna görə hər həftə müxtəlif qidalar sınayıram."
-    ]
-  },
-  {
-    en: "available", az: "mövcud; əldə edilə bilən", pos: "sifət", cat: "food",
-    sentences: [
-      "Fresh vegetables are always <em>available</em> at the farmers' market. — Təzə tərəvəzlər həmişə fermer bazarında mövcuddur.",
-      "Is this dish <em>available</em> in your restaurant? — Bu xörək sizin restoranınızda mövcuddur?",
-      "Many kinds of food were <em>available</em> to our ancestors. — Əcdadlarımıza bir çox qida növü əlçatan idi."
-    ]
-  },
-  {
-    en: "special", az: "xüsusi", pos: "sifət", cat: "food",
-    sentences: [
-      "We eat this <em>special</em> dish only on holidays. — Biz bu xüsusi xörəyi yalnız bayramlarda yeyirik.",
-      "My grandmother makes a <em>special</em> soup for cold days. — Nənəm soyuq günlər üçün xüsusi bir şorba hazırlayır.",
-      "Today is a <em>special</em> occasion, so we ordered a big meal. — Bu gün xüsusi bir gündür, buna görə böyük bir yemək sifariş etdik."
-    ]
-  },
-  {
-    en: "crops", az: "əkin məhsulları; bitki məhsulları", pos: "isim (cəm)", cat: "farming",
-    sentences: [
-      "Farmers bring their <em>crops</em> to the market every Saturday. — Fermerlər hər şənbə bazara öz məhsullarını gətirirlər.",
-      "Rice is one of the most important <em>crops</em> in Asia. — Düyü Asiyada ən vacib əkin məhsullarından biridir.",
-      "The <em>crops</em> need a lot of water and sunshine to grow well. — Məhsulların yaxşı böyüməsi üçün çoxlu su və günəş işığı lazımdır."
-    ]
-  },
-  {
-    en: "farmers", az: "fermerlər; əkinçilər", pos: "isim (cəm)", cat: "farming",
-    sentences: [
-      "<em>Farmers</em> work very hard to grow food for everyone. — Fermerlər hər kəs üçün qida yetişdirmək üçün çox çalışırlar.",
-      "Local <em>farmers</em> sell fresh vegetables at the market. — Yerli fermerlər bazarda təzə tərəvəzlər satırlar.",
-      "Many <em>farmers</em> in Asia grow rice in flooded fields called paddies. — Asiyada bir çox fermer su basmış tarla olan sahillərdə düyü becərir."
-    ]
-  },
-  {
-    en: "grain", az: "taxıl; dən", pos: "isim", cat: "nutrition",
-    sentences: [
-      "Rice, wheat, and corn are all types of <em>grain</em>. — Düyü, buğda və qarğıdalı hamısı taxıl növləridir.",
-      "People have been eating <em>grains</em> for thousands of years. — İnsanlar minillər boyu taxıl yeyirlər.",
-      "Don't eat too much <em>grain</em> with a lot of sugar or salt. — Çoxlu şəkər və ya duzla çox taxıl yeməyin."
-    ]
-  },
-  {
-    en: "protein", az: "protein; zülal", pos: "isim", cat: "nutrition",
-    sentences: [
-      "Meat and eggs are excellent sources of <em>protein</em>. — Ət və yumurta əla protein mənbələridir.",
-      "Your body needs <em>protein</em> to build and repair muscles. — Əzələləri qurmaq və bərpa etmək üçün bədəninizin proteinə ehtiyacı var.",
-      "Beans are a great plant-based source of <em>protein</em>. — Lobya əla bitki əsaslı protein mənbəyidir."
-    ]
-  },
-  {
-    en: "vitamins", az: "vitaminlər", pos: "isim (cəm)", cat: "nutrition",
-    sentences: [
-      "Fruits and vegetables are full of <em>vitamins</em>. — Meyvə və tərəvəzlər vitaminlərlə doludur.",
-      "You need <em>vitamins</em> to stay healthy and have energy. — Sağlam qalmaq və enerji üçün vitaminlərə ehtiyacınız var.",
-      "Children need plenty of <em>vitamins</em> for healthy growth. — Uşaqların sağlam inkişafı üçün bol vitaminlərə ehtiyacları var."
-    ]
-  },
-  {
-    en: "dairy", az: "süd məhsulları", pos: "isim/sifət", cat: "nutrition",
-    sentences: [
-      "<em>Dairy</em> products include milk, cheese, and yogurt. — Süd məhsullarına süd, pendir və qatıq daxildir.",
-      "Some people are allergic to <em>dairy</em> and cannot drink milk. — Bəzi insanlar süd məhsullarına allergiyası var və süd içə bilmirlər.",
-      "We chose peach yogurt as the <em>dairy</em> food for the meal. — Yemək üçün süd məhsulu kimi şaftalı qatıq seçdik."
-    ]
-  },
-  {
-    en: "sugar", az: "şəkər", pos: "isim", cat: "nutrition",
-    sentences: [
-      "Too much <em>sugar</em> is bad for your teeth and health. — Həddən artıq şəkər dişləriniz və sağlığınız üçün zərərlidir.",
-      "Fruits contain natural <em>sugar</em>, which is better than added sugar. — Meyvələr əlavə şəkərdən daha yaxşı olan təbii şəkər ehtiva edir.",
-      "She doesn't add <em>sugar</em> to her tea because she prefers it plain. — O çayına şəkər əlavə etmir, çünki sadəsini üstün tutur."
-    ]
-  },
-  {
-    en: "salt", az: "duz", pos: "isim", cat: "nutrition",
-    sentences: [
-      "Don't add too much <em>salt</em> to your food — it is bad for your heart. — Yeməyinizə çox duz əlavə etməyin — bu ürəyiniz üçün zərərlidir.",
-      "She puts only a little <em>salt</em> in her cooking. — O, bişirdiyinə yalnız bir az duz qoyur.",
-      "Salty foods include chips, pickles, and canned soups. — Duzlu qidalara çips, turşu və konserv şorbalar daxildir."
-    ]
-  },
-  {
-    en: "vegetarian", az: "vegetarian; ət yeməyən", pos: "isim/sifət", cat: "diet",
-    sentences: [
-      "A <em>vegetarian</em> does not eat meat, fish, or chicken. — Vegetarian ət, balıq və toyuq yemiir.",
-      "There are many delicious <em>vegetarian</em> dishes in Indian cuisine. — Hind mətbəxindəki bir çox dadlı vegetarian xörəklər var.",
-      "She became <em>vegetarian</em> because she loves animals. — O, heyvanları sevdiyi üçün vegetarian oldu."
-    ]
-  },
-  {
-    en: "vegan", az: "vegan; heyvani qida yeməyən", pos: "isim/sifət", cat: "diet",
-    sentences: [
-      "A <em>vegan</em> diet contains no animal products at all, including milk and eggs. — Vegan pəhrizi süd və yumurta da daxil olmaqla heç bir heyvan məhsulu ehtiva etmir.",
-      "She is <em>vegan</em>, so she never eats cheese or butter. — O vegandır, buna görə heç vaxt pendir və ya yağ yemiir.",
-      "<em>Vegan</em> 'cheese' is not made from milk. — Vegan 'pendir' süddən hazırlanmır."
-    ]
-  },
-  {
-    en: "paleo diet", az: "paleo pəhrizi (ibtidai insan pəhrizi)", pos: "isim", cat: "diet",
-    sentences: [
-      "The <em>paleo diet</em> includes only meat, fish, fruits, and vegetables. — Paleo pəhrizi yalnız ət, balıq, meyvə və tərəvəzləri ehtiva edir.",
-      "People who follow the <em>paleo diet</em> do not eat grains or dairy. — Paleo pəhrizinə əməl edən insanlar taxıl və ya süd məhsulları yemirlər.",
-      "The <em>paleo diet</em> tries to copy what our ancestors ate before farming began. — Paleo pəhrizi əkinçilikdən əvvəl əcdadlarımızın nə yediyini kopyalamağa çalışır."
-    ]
-  },
-  {
-    en: "ancestors", az: "əcdadlar; ata-babalar", pos: "isim (cəm)", cat: "farming",
-    sentences: [
-      "Our <em>ancestors</em> ate a much wider variety of foods than we do today. — Əcdadlarımız bu gün bizdən çox daha geniş çeşiddə qidalar yeyirdilər.",
-      "<em>Ancestors</em> who lived before farming ate mainly wild plants and animals. — Əkinçilikdən əvvəl yaşayan əcdadlar əsasən vəhşi bitki və heyvanlar yeyirdilər.",
-      "We can learn healthy habits by studying what our <em>ancestors</em> ate. — Əcdadlarımızın nə yediyini öyrənərək sağlam vərdişlər əldə edə bilərik."
-    ]
-  },
-  {
-    en: "experience", az: "təcrübə; yaşamaq (fel)", pos: "isim/fel", cat: "farming",
-    sentences: [
-      "Many people around the world <em>experience</em> health problems because of bad diets. — Dünyanın hər yerindən insanlar pis pəhriz səbəbindən sağlamlıq problemləri yaşayır.",
-      "She has many years of <em>experience</em> cooking traditional dishes. — Onun ənənəvi xörəklər bişirmədə çoxillik təcrübəsi var.",
-      "Travel is a great way to <em>experience</em> new foods and cultures. — Səyahət yeni qidaları və mədəniyyətləri yaşamaq üçün əla bir yoldur."
-    ]
-  },
-  {
-    en: "ability", az: "bacarıq; qabiliyyət", pos: "isim", cat: "diet",
-    sentences: [
-      "Your <em>ability</em> to cook improves with practice. — Yemək bişirmə bacarığınız məşq etməklə artır.",
-      "She has the <em>ability</em> to make a delicious meal from simple ingredients. — O, sadə inqredientlərdən dadlı yemək hazırlamaq bacarığına malikdir.",
-      "Not everyone has the <em>ability</em> to follow a strict diet. — Hamının ciddi bir pəhrizə əməl etmək bacarığı yoxdur."
-    ]
-  },
-  {
-    en: "recommend", az: "tövsiyə etmək", pos: "fel", cat: "food",
-    sentences: [
-      "I <em>recommend</em> baked lasagna for a dinner party. — Şam yeməyi partiyası üçün sobada bişirilmiş lazanya tövsiyə edirəm.",
-      "The doctor <em>recommends</em> eating more vegetables and less sugar. — Doktor daha çox tərəvəz yeyib daha az şəkər istehlak etməyi tövsiyə edir.",
-      "Can you <em>recommend</em> a good restaurant in this city? — Bu şəhərdə yaxşı bir restoran tövsiyə edə bilərsiniz?"
-    ]
-  },
-  {
-    en: "main idea", az: "əsas fikir; əsas ideya", pos: "söz birləşməsi", cat: "food",
-    sentences: [
-      "The <em>main idea</em> of the paragraph is that lasagna is a great party food. — Paraqrafın əsas fikri lazanyanın party üçün əla yemək olmasıdır.",
-      "When reading, always look for the <em>main idea</em> first. — Oxuyarkən həmişə əvvəlcə əsas fikrə baxın.",
-      "What is the <em>main idea</em> of this article about the paleo diet? — Paleo pəhrizi haqqındakı bu məqalənin əsas fikri nədir?"
-    ]
-  },
-  {
-    en: "local", az: "yerli; local", pos: "sifət", cat: "farming",
-    sentences: [
-      "It is better to buy <em>local</em> food from nearby farmers. — Yaxın fermerclərdən yerli qida almaq daha yaxşıdır.",
-      "<em>Local</em> markets sell fresher food than supermarkets. — Yerli bazarlar supermarketlərdən daha təzə qida satır.",
-      "She prefers <em>local</em> vegetables because they are more natural. — O yerli tərəvəzləri üstün tutur, çünki onlar daha naturaldır."
-    ]
-  },
-  {
-    en: "paddy", az: "suvarma düyü sahəsi", pos: "isim", cat: "farming",
-    sentences: [
-      "Rice grows in flooded fields called <em>paddies</em>. — Düyü su basmış tarlalarda yetişir, bunlara 'paddy' deyilir.",
-      "The <em>paddy</em> fields need warm and wet weather to grow rice well. — Paddy tarlaları üçün düyünün yaxşı böyüməsi üçün isti və nəm hava lazımdır.",
-      "After the harvest, the water in the <em>paddy</em> is removed. — Məhsul yığıldıqdan sonra paddy-dəki su çıxarılır."
-    ]
-  },
-  {
-    en: "harvest", az: "məhsul yığımı; biçin", pos: "isim/fel", cat: "farming",
-    sentences: [
-      "Farmers <em>harvest</em> rice in the autumn. — Fermerlər payızda düyü yığırlar.",
-      "This year's <em>harvest</em> was excellent because of good rain. — Bu ilin məhsul yığımı yaxşı yağış sayəsində əla idi.",
-      "After the <em>harvest</em>, the rice seeds are dried in the sun. — Məhsul yığımından sonra düyü toxumları günəşdə qurudulur."
-    ]
-  },
-  {
-    en: "climate", az: "iqlim", pos: "isim", cat: "farming",
-    sentences: [
-      "Rice needs a warm and wet <em>climate</em> to grow well. — Düyünün yaxşı böyüməsi üçün isti və rütubətli iqlim lazımdır.",
-      "The <em>climate</em> in tropical countries is perfect for growing bananas. — Tropik ölkələrin iqlimi banan yetişdirmək üçün mükəmməldir.",
-      "A changing <em>climate</em> makes it harder for farmers to grow food. — Dəyişən iqlim fermerlərə qida yetişdirməyi çətinləşdirir."
-    ]
-  },
-  {
-    en: "in advance", az: "əvvəlcədən; öncədən", pos: "zərf", cat: "cooking",
-    sentences: [
-      "You can make lasagna <em>in advance</em> and keep it in the fridge. — Lazanyanı əvvəlcədən hazırlayıb soyuducuda saxlaya bilərsiniz.",
-      "It is good to plan your meals <em>in advance</em> to eat healthily. — Sağlam qidalanmaq üçün yeməklərinizi əvvəlcədən planlaşdırmaq yaxşıdır.",
-      "She always buys her ingredients <em>in advance</em> on weekends. — O həmişə həftə sonlarında inqredientlərini əvvəlcədən alır."
-    ]
-  },
-  {
-    en: "occasion", az: "hadisə; münasibət; xüsusi gün", pos: "isim", cat: "food",
-    sentences: [
-      "We eat this special food only on special <em>occasions</em> like weddings. — Bu xüsusi yeməyi yalnız toy kimi xüsusi günlərdə yeyirik.",
-      "A birthday is a perfect <em>occasion</em> to bake a cake. — Ad günü tort bişirmək üçün mükəmməl bir münasibətdir.",
-      "They always cook couscous on <em>occasions</em> like family gatherings. — Onlar həmişə ailə yığıncaqları kimi münasibətlərdə kuskus bişirirlər."
-    ]
-  },
-  {
-    en: "supporting details", az: "dəstəkləyici detallar; əsas fikri dəstəkləyən məlumatlar", pos: "söz birləşməsi", cat: "food",
-    sentences: [
-      "<em>Supporting details</em> help the reader believe the writer's main idea. — Dəstəkləyici detallar oxucuya yazıçının əsas fikrini inandırmağa kömək edir.",
-      "Give three <em>supporting details</em> in your paragraph. — Paraqrafınızda üç dəstəkləyici detal verin.",
-      "The <em>supporting details</em> include facts, examples, and reasons. — Dəstəkləyici detallar faktları, nümunələri və səbəbləri ehtiva edir."
-    ]
-  },
-  {
-    en: "bake", az: "sobada bişirmək", pos: "fel", cat: "cooking",
-    sentences: [
-      "She loves to <em>bake</em> bread every Sunday morning. — O hər bazar günü səhər çörək bişirməyi seviir.",
-      "The baker <em>bakes</em> many different types of bread every day. — Çörəkçi hər gün bir çox müxtəlif növ çörək bişirir.",
-      "You need to <em>bake</em> the lasagna for 40 minutes at 180 degrees. — Lazanyanı 180 dərəcədə 40 dəqiqə sobada bişirmək lazımdır."
-    ]
-  },
-  {
-    en: "dough", az: "xəmir", pos: "isim", cat: "cooking",
-    sentences: [
-      "The baker kneads the <em>dough</em> before putting it in the oven. — Çörəkçi xəmiri sobaya qoymadan əvvəl yoğurur.",
-      "Bread <em>dough</em> needs time to rise before baking. — Çörək xəmiri bişirməzdən əvvəl qabarmaq üçün vaxta ehtiyac duyur.",
-      "She made pizza <em>dough</em> from flour, water, and yeast. — O, un, su və maya ilə pizza xəmiri hazırladı."
-    ]
-  },
-  {
-    en: "loaf", az: "çörək (bütöv); somun", pos: "isim", cat: "cooking",
-    sentences: [
-      "She bought a fresh <em>loaf</em> of bread at the bakery. — O çörəkxanada təzə bir somun aldı.",
-      "The baker makes 50 <em>loaves</em> of bread every morning. — Çörəkçi hər səhər 50 somun çörək bişirir.",
-      "We ate a whole <em>loaf</em> of bread with the soup. — Şorba ilə bütöv bir somun çörək yedik."
-    ]
-  },
-  {
-    en: "experiment", az: "təcrübə; sınaq", pos: "isim", cat: "cooking",
-    sentences: [
-      "Baking bread feels like an <em>experiment</em> — you try and learn. — Çörək bişirmək bir təcrübəyə bənzəyir — sınayırsınız və öyrənirsiniz.",
-      "The chef did an <em>experiment</em> with new spices in the recipe. — Aşpaz reseptdə yeni ədviyyatlarla sınaq apardı.",
-      "Cooking is an <em>experiment</em>: sometimes it works, sometimes it doesn't. — Bişirmə bir təcrübədir: bəzən alınır, bəzən yox."
-    ]
-  },
-  {
-    en: "nail it", az: "mükəmməl bacarmaq; tam tutmaq", pos: "idiom", cat: "cooking",
-    sentences: [
-      "After many tries, she finally <em>nailed it</em> and made perfect bread. — Bir çox cəhddən sonra o nəhayət bacardı və mükəmməl çörək bişirdi.",
-      "He <em>nailed it</em> on his first attempt at making sushi. — O, suşi hazırlamağın ilk cəhdindəcə mükəmməl bacardı.",
-      "Practice every day and soon you will <em>nail it</em>. — Hər gün məşq edin və tezliklə tam bacaracaqsınız."
-    ]
-  },
-  {
-    en: "sweet spot", az: "ideal nöqtə; ən yaxşı yer", pos: "isim", cat: "food",
-    sentences: [
-      "A café can be a <em>sweet spot</em> to study — not too noisy, not too quiet. — Kafe öyrənmək üçün ideal bir yer ola bilər — nə çox səs-küylü, nə çox sakit.",
-      "Finding the <em>sweet spot</em> in cooking means getting the temperature just right. — Bişirmədə ideal nöqtəni tapmaq temperaturu tam düzgün ayarlamaq deməkdir.",
-      "The <em>sweet spot</em> for a healthy diet is balance — not too strict, not too loose. — Sağlam pəhriz üçün ideal nöqtə tarazlıqdır — nə çox ciddi, nə çox sərbəst."
-    ]
-  },
-  {
-    en: "couscous", az: "kuskus (Şimali Afrika yeməyi)", pos: "isim", cat: "food",
-    sentences: [
-      "<em>Couscous</em> is made from wheat and is very popular in North Africa. — Kuskus buğdadan hazırlanır və Şimali Afrikada çox populyardır.",
-      "She puts vegetables and some kind of sauce on top of the <em>couscous</em>. — O, kuskusun üstünə tərəvəzlər və bir növ sous qoyur.",
-      "My great-uncle learned to cook <em>couscous</em> from his mother. — Ulu əmim kuskus bişirməyi anasından öyrəndi."
-    ]
-  },
-  {
-    en: "seafood", az: "dəniz məhsulları", pos: "isim", cat: "food",
-    sentences: [
-      "Greece is famous for its delicious <em>seafood</em> dishes. — Yunanıstan dadlı dəniz məhsulları xörəkləri ilə məşhurdur.",
-      "We ate fresh <em>seafood</em> — shrimp, fish, and squid — at the restaurant. — Restoranda təzə dəniz məhsulları — karides, balıq və kalamar yedik.",
-      "Some people are allergic to <em>seafood</em> and must avoid it. — Bəzi insanlar dəniz məhsullarına allergiyası var və ondan qaçınmalıdırlar."
-    ]
-  },
-  {
-    en: "lamb", az: "quzu əti", pos: "isim", cat: "food",
-    sentences: [
-      "We had roasted <em>lamb</em> with herbs for dinner. — Şam yeməyinə ədviyyatlı qovrulmuş quzu əti yedik.",
-      "<em>Lamb</em> is very popular in Middle Eastern cooking. — Quzu əti Orta Şərq mətbəxində çox populyardır.",
-      "She tried <em>lamb</em> for the first time when she visited Athens. — O, Afinaya səfər etdikdə ilk dəfə quzu əti sınadı."
-    ]
-  },
-  {
-    en: "introduce", az: "tanış etmək; təqdim etmək", pos: "fel", cat: "food",
-    sentences: [
-      "My friend <em>introduced</em> me to many new foods when I visited her country. — Dostum ölkəsini ziyarət etdiyimdə məni bir çox yeni qidalarla tanış etdi.",
-      "The chef wants to <em>introduce</em> traditional Azerbaijani dishes to tourists. — Aşpaz turistlərə ənənəvi Azərbaycan xörəklərini təqdim etmək istəyir.",
-      "Travel is a great way to <em>introduce</em> yourself to new flavours. — Səyahət özünüzü yeni dadlarla tanış etmək üçün əla bir yoldur."
-    ]
-  },
-  {
-    en: "try", az: "sınamaq; cəhd etmək", pos: "fel", cat: "food",
-    sentences: [
-      "You should <em>try</em> this dish — it is delicious! — Bu xörəyi sınamalısınız — çox dadlıdır!",
-      "She is not afraid to <em>try</em> new and unusual foods. — O, yeni və qeyri-adi qidaları sınamaqdan qorxmur.",
-      "I <em>tried</em> sushi for the first time last year and loved it. — Keçən il ilk dəfə suşi sınadım və çox bəyəndim."
-    ]
-  },
-  {
-    en: "order", az: "sifariş etmək; sifariş", pos: "fel/isim", cat: "food",
-    sentences: [
-      "When I was a child, I always <em>ordered</em> pizza at restaurants. — Uşaq ikən restoranlarda həmişə pizza sifariş edirdim.",
-      "She <em>ordered</em> a big salad and a glass of water. — O, böyük bir salat və bir stəkan su sifariş etdi.",
-      "What would you like to <em>order</em> today? — Bu gün nə sifariş etmək istərdiniz?"
-    ]
-  },
-  {
-    en: "buy", az: "almaq; satın almaq", pos: "fel", cat: "food",
-    sentences: [
-      "I <em>bought</em> fresh vegetables at the farmers' market yesterday. — Dünən fermer bazarında təzə tərəvəzlər aldım.",
-      "It is healthier to <em>buy</em> local food than imported food. — Yerli qida almaq idxal edilmiş qidadan daha sağlamlıdır.",
-      "She went to the grocery store to <em>buy</em> ingredients for dinner. — O, şam yeməyi üçün inqredient almaq üçün ərzaq mağazasına getdi."
-    ]
-  },
-  {
-    en: "go", az: "getmək", pos: "fel", cat: "food",
-    sentences: [
-      "We <em>went</em> to a restaurant to celebrate her birthday. — Onun ad gününü qeyd etmək üçün restoran getdik.",
-      "I <em>go</em> to the market every Saturday morning to buy fresh food. — Hər şənbə səhəri təzə qida almaq üçün bazara gedirəm.",
-      "Did you <em>go</em> to the new café that opened last week? — Keçən həftə açılan yeni kafeyə getdinizmi?"
-    ]
-  },
-  {
-    en: "simple past", az: "sadə keçmiş zaman", pos: "qrammatika", cat: "food",
-    sentences: [
-      "We use the <em>simple past</em> to talk about completed actions. — Tamamlanmış hərəkətlər haqqında danışmaq üçün sadə keçmiş zamanı işlədirik.",
-      "The <em>simple past</em> of 'eat' is 'ate'. — 'Eat' felinin sadə keçmiş zamanı 'ate'-dir.",
-      "She used the <em>simple past</em> to describe what she cooked yesterday. — O, dünən nə bişirdiyini izah etmək üçün sadə keçmiş zamanı işlətdi."
-    ]
-  },
-  {
-    en: "present continuous", az: "indiki davamedici zaman", pos: "qrammatika", cat: "food",
-    sentences: [
-      "Use the <em>present continuous</em> for actions happening right now. — İndiki davamedici zamanı hal-hazırda baş verən hərəkətlər üçün işlədin.",
-      "She is cooking — that is the <em>present continuous</em>. — O, bişirir — bu indiki davamedici zamandır.",
-      "My father is <em>preparing</em> a special dish — the <em>present continuous</em> shows it is happening now. — Atam xüsusi bir xörək hazırlayır — indiki davamedici zaman bunun indi baş verdiyini göstərir."
-    ]
-  },
-  {
-    en: "healthy", az: "sağlam; faydalı", pos: "sifət", cat: "nutrition",
-    sentences: [
-      "Eating vegetables every day is a very <em>healthy</em> habit. — Hər gün tərəvəz yemək çox sağlam bir vərdişdir.",
-      "She tries to make <em>healthy</em> choices at every meal. — O, hər yemək zamanı sağlam seçimlər etməyə çalışır.",
-      "A <em>healthy</em> diet includes protein, vitamins, and plenty of water. — Sağlam pəhriz protein, vitaminlər və bol su ehtiva edir."
-    ]
-  },
-  {
-    en: "natural", az: "təbii; natural", pos: "sifət", cat: "diet",
-    sentences: [
-      "People on a paleo diet prefer <em>natural</em> foods without additives. — Paleo pəhrizindəki insanlar əlavəsiz <em>təbii</em> qidaları üstün tuturlar.",
-      "Honey is a <em>natural</em> sweetener that is healthier than white sugar. — Bal ağ şəkərdən daha sağlam olan təbii bir şirinləşdiricidir.",
-      "<em>Natural</em> food from farmers' markets is fresher than supermarket food. — Fermer bazarlarındakı təbii qida supermarket qidasından daha təzədir."
-    ]
-  },
-  {
-    en: "disease", az: "xəstəlik", pos: "isim", cat: "nutrition",
-    sentences: [
-      "A poor diet can lead to serious <em>diseases</em> like diabetes. — Pis pəhriz diabet kimi ciddi xəstəliklərə gətirib çıxara bilər.",
-      "Eating well helps your body fight <em>disease</em>. — Yaxşı qidalanmaq bədəninizin xəstəliklərə qarşı mübarizəsinə kömək edir.",
-      "Heart <em>disease</em> is linked to eating too much salt and fat. — Ürək xəstəliyi çox duz və yağ istehlakı ilə bağlıdır."
-    ]
-  },
-  {
-    en: "solution", az: "həll; çözüm", pos: "isim", cat: "diet",
-    sentences: [
-      "Some people believe the paleo diet is a <em>solution</em> to modern health problems. — Bəzi insanlar paleo pəhrizinin müasir sağlamlıq problemlərinin həlli olduğuna inanır.",
-      "There is no single <em>solution</em> to eating healthily — it takes effort. — Sağlam qidalanmaq üçün tək bir həll yolu yoxdur — bu səy tələb edir.",
-      "Cooking at home is a good <em>solution</em> if you want to control what you eat. — Evdə bişirmək nə yediyinizi idarə etmək istəyirsinizsə yaxşı bir həll yoludur."
-    ]
-  },
-  {
-    en: "trend", az: "tendensiya; moda; cərəyan", pos: "isim", cat: "diet",
-    sentences: [
-      "The paleo diet is a popular <em>trend</em> among health-conscious people. — Paleo pəhrizi sağlamlığa diqqət yetirən insanlar arasında populyar bir tendensiyadır.",
-      "Food <em>trends</em> change every few years — today it's vegan, tomorrow something else. — Qida tendensiyaları hər bir neçə ildə dəyişir — bu gün vegan, sabah başqa bir şey.",
-      "She always follows the latest <em>trends</em> in healthy eating. — O həmişə sağlam qidalanmadakı son tendensiyaları izləyir."
-    ]
-  },
-  {
-    en: "low-calorie", az: "az kalorili", pos: "sifət", cat: "diet",
-    sentences: [
-      "Many people choose <em>low-calorie</em> foods to manage their weight. — Bir çox insan çəkilərini idarə etmək üçün az kalorili qidalar seçir.",
-      "Salad is usually a <em>low-calorie</em> meal if you don't add too much dressing. — Salat, çox sous əlavə etməsəniz, ümumiyyətlə az kalorili bir yeməkdir.",
-      "She replaced soda with water as a <em>low-calorie</em> drink option. — O, qazlı içkini az kalorili içki seçimi olaraq suyla əvəz etdi."
-    ]
-  },
-  {
-    en: "raw", az: "çiy; emal olunmamış", pos: "sifət", cat: "cooking",
-    sentences: [
-      "Some people eat <em>raw</em> vegetables because cooking destroys some vitamins. — Bəzi insanlar çiy tərəvəz yeyir, çünki bişirmə bəzi vitaminləri məhv edir.",
-      "The paleo diet includes a lot of <em>raw</em> and unprocessed foods. — Paleo pəhrizi çoxlu çiy və emal olunmamış qidaları ehtiva edir.",
-      "Never eat <em>raw</em> chicken — it can make you very sick. — Heç vaxt çiy toyuq yeməyin — bu sizi çox xəstə edə bilər."
-    ]
-  },
-  {
-    en: "farming", az: "əkinçilik; fermerlik", pos: "isim", cat: "farming",
-    sentences: [
-      "<em>Farming</em> began about 12,000 years ago when humans started growing crops. — Əkinçilik təxminən 12.000 il əvvəl insanlar bitkilər yetişdirməyə başladığında başladı.",
-      "Modern <em>farming</em> produces large amounts of food but uses many chemicals. — Müasir əkinçilik çoxlu qida istehsal edir, lakin çoxlu kimyəvi maddə işlədir.",
-      "Rice <em>farming</em> requires a lot of water and warm weather. — Düyü əkinçiliyi çoxlu su və isti hava tələb edir."
-    ]
-  },
-  {
-    en: "delicious", az: "dadlı; ləzzətli", pos: "sifət", cat: "food",
-    sentences: [
-      "The couscous my aunt made was absolutely <em>delicious</em>. — Bibimin hazırladığı kuskus tamamilə dadlı idi.",
-      "This restaurant is famous for its <em>delicious</em> seafood pasta. — Bu restoran dadlı dəniz məhsulları pastası ilə məşhurdur.",
-      "She made a <em>delicious</em> cake for the birthday party. — O, ad günü partiyası üçün dadlı bir tort bişirdi."
-    ]
-  },
-  {
-    en: "social event", az: "sosial tədbir; ictimai hadisə", pos: "söz birləşməsi", cat: "food",
-    sentences: [
-      "Food is always an important part of any <em>social event</em>. — Qida həmişə istənilən sosial tədbirин mühüm hissəsidir.",
-      "A dinner party is a popular <em>social event</em> where people share food. — Şam yeməyi ziyafəti insanların qida paylaşdığı populyar bir sosial tədbirdir.",
-      "At every <em>social event</em> in our culture, there is a big table of food. — Mədəniyyətimizdəki hər sosial tədbirдə böyük bir qida masası olur."
-    ]
-  },
-  {
-    en: "share", az: "bölüşmək; paylaşmaq", pos: "fel", cat: "food",
-    sentences: [
-      "When you <em>share</em> food with someone, you can say: 'You should try this!' — Birisi ilə qida paylaşdığınızda deyə bilərsiniz: 'Bunu sınamalısınız!'",
-      "In many cultures, people <em>share</em> large dishes at the table. — Bir çox mədəniyyətdə insanlar masada böyük qabları paylaşırlar.",
-      "She always <em>shares</em> her homemade food with her colleagues. — O həmişə ev bişirməsini iş yoldaşları ilə paylaşır."
-    ]
-  },
-  {
-    en: "brainstorm", az: "beyin fırtınası; fikir toplamaq", pos: "fel/isim", cat: "food",
-    sentences: [
-      "Let's <em>brainstorm</em> ideas for the writing topic about food habits. — Gəlin qida vərdişləri haqqındakı yazı mövzusu üçün ideyaları beyin fırtınasına tullayaq.",
-      "The group <em>brainstormed</em> many ideas about healthy eating. — Qrup sağlam qidalanma haqqında bir çox fikir topladı.",
-      "A good way to start a paragraph is to <em>brainstorm</em> supporting details first. — Paraqrafa başlamağın yaxşı yolu əvvəlcə dəstəkləyici detalları toplamaqdan keçir."
-    ]
+// ══════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════
+let currentPage = 'vocab';
+let currentCat  = 'all';
+
+function nav(id, el) {
+  // close mobile sidebar
+  document.getElementById('sb').classList.remove('open');
+
+  // sidebar highlight
+  document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+
+  // vocab sub-filter or page switch
+  if (id.startsWith('vocab-')) {
+    currentCat = id.replace('vocab-','');
+    showPage('vocab');
+    renderGrid();
+  } else if (id.startsWith('gram-')) {
+    showPage('gram-' + id.replace('gram-',''));
+  } else {
+    showPage(id);
   }
+}
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('page-' + name);
+  if (el) el.classList.add('active');
+  document.querySelector('.main').scrollTop = 0;
+}
+
+// ══════════════════════════════════════
+//  VOCAB DATA
+// ══════════════════════════════════════
+const words = [
+  {en:"diet",az:"pəhriz; qida rejimi",pos:"isim",cat:"diet",sentences:["My <em>diet</em> includes a lot of vegetables and fruit. — Mənim pəhrizim çoxlu tərəvəz və meyvə ehtiva edir.","A healthy <em>diet</em> can prevent many diseases. — Sağlam qida rejimi bir çox xəstəliklərin qarşısını ala bilər.","She follows a vegetarian <em>diet</em> because she loves animals. — O, heyvanları sevdiyi üçün vegetarian pəhrizinə əməl edir."]},
+  {en:"meal",az:"yemək (nahar, şam yeməyi)",pos:"isim",cat:"food",sentences:["We have three <em>meals</em> a day: breakfast, lunch, and dinner. — Gündə üç dəfə yeyirik: səhər, günorta və axşam yeməyi.","She always prepares a healthy <em>meal</em> for her family. — O həmişə ailəsi üçün sağlam yemək hazırlayır.","My favourite <em>meal</em> is lasagna with a green salad. — Ən sevdiyim yemək yaşıl salatla lasagnadır."]},
+  {en:"dish",az:"xörək; qab",pos:"isim",cat:"food",sentences:["Couscous is a traditional <em>dish</em> from North Africa. — Kuskus Şimali Afrikadan olan ənənəvi bir xörəkdir.","My mother makes a delicious <em>dish</em> with chicken and rice. — Anam toyuq və düyü ilə dadlı bir xörək hazırlayır.","This <em>dish</em> is very popular at weddings in our country. — Bu xörək ölkəmizdə toylarda çox populyardır."]},
+  {en:"ingredient",az:"inqredient; tərkib hissə",pos:"isim",cat:"cooking",sentences:["The main <em>ingredients</em> of this soup are tomatoes and onions. — Bu şorbanın əsas inqredientləri pomidor və soğandır.","Fresh <em>ingredients</em> make your food much tastier. — Təzə inqredientlər yeməyinizi daha dadlı edir.","Which <em>ingredients</em> do you need to make lasagna? — Lazanya hazırlamaq üçün hansı inqredientlər lazımdır?"]},
+  {en:"prepare",az:"hazırlamaq",pos:"fel",cat:"cooking",sentences:["She <em>prepares</em> dinner every evening for her family. — O hər axşam ailəsi üçün şam yeməyi hazırlayır.","It takes one hour to <em>prepare</em> this dish. — Bu xörəyi hazırlamaq üçün bir saat lazımdır.","My father is <em>preparing</em> a special meal for tonight. — Atam bu axşam üçün xüsusi bir yemək hazırlayır."]},
+  {en:"variety",az:"müxtəliflik; çeşid",pos:"isim",cat:"food",sentences:["Our ancestors ate a wide <em>variety</em> of foods. — Əcdadlarımız geniş çeşiddə qidalar yeyirdilər.","The market offers a great <em>variety</em> of fresh vegetables. — Bazar təzə tərəvəzlərin böyük çeşidini təklif edir.","I like <em>variety</em> in my diet, so I try different foods every week. — Pəhrizimdə müxtəlifliyi sevirəm, buna görə hər həftə müxtəlif qidalar sınayıram."]},
+  {en:"available",az:"mövcud; əldə edilə bilən",pos:"sifət",cat:"food",sentences:["Fresh vegetables are always <em>available</em> at the farmers' market. — Təzə tərəvəzlər həmişə fermer bazarında mövcuddur.","Is this dish <em>available</em> in your restaurant? — Bu xörək sizin restoranınızda mövcuddur?","Many kinds of food were <em>available</em> to our ancestors. — Əcdadlarımıza bir çox qida növü əlçatan idi."]},
+  {en:"special",az:"xüsusi",pos:"sifət",cat:"food",sentences:["We eat this <em>special</em> dish only on holidays. — Biz bu xüsusi xörəyi yalnız bayramlarda yeyirik.","My grandmother makes a <em>special</em> soup for cold days. — Nənəm soyuq günlər üçün xüsusi bir şorba hazırlayır.","Today is a <em>special</em> occasion, so we ordered a big meal. — Bu gün xüsusi bir gündür, buna görə böyük bir yemək sifariş etdik."]},
+  {en:"crops",az:"əkin məhsulları",pos:"isim (cəm)",cat:"farming",sentences:["Farmers bring their <em>crops</em> to the market every Saturday. — Fermerlər hər şənbə bazara öz məhsullarını gətirirlər.","Rice is one of the most important <em>crops</em> in Asia. — Düyü Asiyada ən vacib əkin məhsullarından biridir.","The <em>crops</em> need a lot of water and sunshine to grow well. — Məhsulların yaxşı böyüməsi üçün çoxlu su və günəş işığı lazımdır."]},
+  {en:"farmers",az:"fermerlər; əkinçilər",pos:"isim (cəm)",cat:"farming",sentences:["<em>Farmers</em> work very hard to grow food for everyone. — Fermerlər hər kəs üçün qida yetişdirmək üçün çox çalışırlar.","Local <em>farmers</em> sell fresh vegetables at the market. — Yerli fermerlər bazarda təzə tərəvəzlər satırlar.","Many <em>farmers</em> in Asia grow rice in flooded fields called paddies. — Asiyada bir çox fermer su basmış tarlalarda düyü becərir."]},
+  {en:"grain",az:"taxıl; dən",pos:"isim",cat:"nutrition",sentences:["Rice, wheat, and corn are all types of <em>grain</em>. — Düyü, buğda və qarğıdalı hamısı taxıl növləridir.","People have been eating <em>grains</em> for thousands of years. — İnsanlar minillər boyu taxıl yeyirlər.","Don't eat too much <em>grain</em> with a lot of sugar or salt. — Çoxlu şəkər və ya duzla çox taxıl yeməyin."]},
+  {en:"protein",az:"protein; zülal",pos:"isim",cat:"nutrition",sentences:["Meat and eggs are excellent sources of <em>protein</em>. — Ət və yumurta əla protein mənbələridir.","Your body needs <em>protein</em> to build and repair muscles. — Əzələləri qurmaq üçün bədəninizin proteinə ehtiyacı var.","Beans are a great plant-based source of <em>protein</em>. — Lobya əla bitki əsaslı protein mənbəyidir."]},
+  {en:"vitamins",az:"vitaminlər",pos:"isim (cəm)",cat:"nutrition",sentences:["Fruits and vegetables are full of <em>vitamins</em>. — Meyvə və tərəvəzlər vitaminlərlə doludur.","You need <em>vitamins</em> to stay healthy and have energy. — Sağlam qalmaq üçün vitaminlərə ehtiyacınız var.","Children need plenty of <em>vitamins</em> for healthy growth. — Uşaqların sağlam inkişafı üçün bol vitaminlərə ehtiyacları var."]},
+  {en:"dairy",az:"süd məhsulları",pos:"isim/sifət",cat:"nutrition",sentences:["<em>Dairy</em> products include milk, cheese, and yogurt. — Süd məhsullarına süd, pendir və qatıq daxildir.","Some people are allergic to <em>dairy</em> and cannot drink milk. — Bəzi insanlar süd məhsullarına allergiyası var.","We chose peach yogurt as the <em>dairy</em> food for the meal. — Yemək üçün süd məhsulu kimi şaftalı qatıq seçdik."]},
+  {en:"sugar",az:"şəkər",pos:"isim",cat:"nutrition",sentences:["Too much <em>sugar</em> is bad for your teeth and health. — Həddən artıq şəkər dişləriniz və sağlığınız üçün zərərlidir.","Fruits contain natural <em>sugar</em>, which is better than added sugar. — Meyvələr əlavə şəkərdən daha yaxşı olan təbii şəkər ehtiva edir.","She doesn't add <em>sugar</em> to her tea because she prefers it plain. — O çayına şəkər əlavə etmir."]},
+  {en:"salt",az:"duz",pos:"isim",cat:"nutrition",sentences:["Don't add too much <em>salt</em> to your food — it is bad for your heart. — Yeməyinizə çox duz əlavə etməyin — bu ürəyiniz üçün zərərlidir.","She puts only a little <em>salt</em> in her cooking. — O, bişirdiyinə yalnız bir az duz qoyur.","Salty foods include chips, pickles, and canned soups. — Duzlu qidalara çips, turşu və konserv şorbalar daxildir."]},
+  {en:"vegetarian",az:"vegetarian; ət yeməyən",pos:"isim/sifət",cat:"diet",sentences:["A <em>vegetarian</em> does not eat meat, fish, or chicken. — Vegetarian ət, balıq və toyuq yemiir.","There are many delicious <em>vegetarian</em> dishes in Indian cuisine. — Hind mətbəxindəki bir çox dadlı vegetarian xörəklər var.","She became <em>vegetarian</em> because she loves animals. — O, heyvanları sevdiyi üçün vegetarian oldu."]},
+  {en:"vegan",az:"vegan; heyvani qida yeməyən",pos:"isim/sifət",cat:"diet",sentences:["A <em>vegan</em> diet contains no animal products, including milk and eggs. — Vegan pəhrizi süd və yumurta da daxil olmaqla heç bir heyvan məhsulu ehtiva etmir.","She is <em>vegan</em>, so she never eats cheese or butter. — O vegandır, buna görə heç vaxt pendir və ya yağ yemiir.","<em>Vegan</em> 'cheese' is not made from milk. — Vegan 'pendir' süddən hazırlanmır."]},
+  {en:"paleo diet",az:"paleo pəhrizi (ibtidai insan pəhrizi)",pos:"isim",cat:"diet",sentences:["The <em>paleo diet</em> includes only meat, fish, fruits, and vegetables. — Paleo pəhrizi yalnız ət, balıq, meyvə və tərəvəzləri ehtiva edir.","People who follow the <em>paleo diet</em> do not eat grains or dairy. — Paleo pəhrizinə əməl edənlər taxıl və ya süd məhsulları yemirlər.","The <em>paleo diet</em> tries to copy what our ancestors ate before farming began. — Paleo pəhrizi əcdadlarımızın nə yediyini kopyalamağa çalışır."]},
+  {en:"ancestors",az:"əcdadlar; ata-babalar",pos:"isim (cəm)",cat:"farming",sentences:["Our <em>ancestors</em> ate a much wider variety of foods than we do today. — Əcdadlarımız bu gün bizdən çox daha geniş çeşiddə qidalar yeyirdilər.","<em>Ancestors</em> who lived before farming ate mainly wild plants and animals. — Əkinçilikdən əvvəl yaşayan əcdadlar əsasən vəhşi bitki və heyvanlar yeyirdilər.","We can learn healthy habits by studying what our <em>ancestors</em> ate. — Əcdadlarımızın nə yediyini öyrənərək sağlam vərdişlər əldə edə bilərik."]},
+  {en:"experience",az:"təcrübə; yaşamaq",pos:"isim/fel",cat:"farming",sentences:["Many people around the world <em>experience</em> health problems because of bad diets. — Dünyanın hər yerindən insanlar pis pəhriz səbəbindən sağlamlıq problemləri yaşayır.","She has many years of <em>experience</em> cooking traditional dishes. — Onun ənənəvi xörəklər bişirməkdə çoxillik təcrübəsi var.","Travel is a great way to <em>experience</em> new foods and cultures. — Səyahət yeni qidaları yaşamaq üçün əla bir yoldur."]},
+  {en:"ability",az:"bacarıq; qabiliyyət",pos:"isim",cat:"diet",sentences:["Your <em>ability</em> to cook improves with practice. — Yemək bişirmə bacarığınız məşq etməklə artır.","She has the <em>ability</em> to make a delicious meal from simple ingredients. — O, sadə inqredientlərdən dadlı yemək hazırlamaq bacarığına malikdir.","Not everyone has the <em>ability</em> to follow a strict diet. — Hamının ciddi bir pəhrizə əməl etmək bacarığı yoxdur."]},
+  {en:"recommend",az:"tövsiyə etmək",pos:"fel",cat:"food",sentences:["I <em>recommend</em> baked lasagna for a dinner party. — Şam yeməyi partiyası üçün sobada bişirilmiş lazanya tövsiyə edirəm.","The doctor <em>recommends</em> eating more vegetables and less sugar. — Doktor daha çox tərəvəz yeyib daha az şəkər istehlak etməyi tövsiyə edir.","Can you <em>recommend</em> a good restaurant in this city? — Bu şəhərdə yaxşı bir restoran tövsiyə edə bilərsiniz?"]},
+  {en:"main idea",az:"əsas fikir",pos:"söz birləşməsi",cat:"food",sentences:["The <em>main idea</em> of the paragraph is that lasagna is a great party food. — Paraqrafın əsas fikri lazanyanın party üçün əla yemək olmasıdır.","When reading, always look for the <em>main idea</em> first. — Oxuyarkən həmişə əvvəlcə əsas fikrə baxın.","What is the <em>main idea</em> of this article about the paleo diet? — Paleo pəhrizi haqqındakı bu məqalənin əsas fikri nədir?"]},
+  {en:"local",az:"yerli; local",pos:"sifət",cat:"farming",sentences:["It is better to buy <em>local</em> food from nearby farmers. — Yaxın fermerlərdən yerli qida almaq daha yaxşıdır.","<em>Local</em> markets sell fresher food than supermarkets. — Yerli bazarlar supermarketlərdən daha təzə qida satır.","She prefers <em>local</em> vegetables because they are more natural. — O yerli tərəvəzləri üstün tutur, çünki onlar daha naturaldır."]},
+  {en:"paddy",az:"suvarma düyü sahəsi",pos:"isim",cat:"farming",sentences:["Rice grows in flooded fields called <em>paddies</em>. — Düyü su basmış tarlalarda yetişir, bunlara 'paddy' deyilir.","The <em>paddy</em> fields need warm and wet weather to grow rice well. — Paddy tarlaları üçün isti və nəm hava lazımdır.","After the harvest, the water in the <em>paddy</em> is removed. — Məhsul yığıldıqdan sonra paddy-dəki su çıxarılır."]},
+  {en:"harvest",az:"məhsul yığımı; biçin",pos:"isim/fel",cat:"farming",sentences:["Farmers <em>harvest</em> rice in the autumn. — Fermerlər payızda düyü yığırlar.","This year's <em>harvest</em> was excellent because of good rain. — Bu ilin məhsul yığımı yaxşı yağış sayəsində əla idi.","After the <em>harvest</em>, the rice seeds are dried in the sun. — Məhsul yığımından sonra düyü toxumları günəşdə qurudulur."]},
+  {en:"climate",az:"iqlim",pos:"isim",cat:"farming",sentences:["Rice needs a warm and wet <em>climate</em> to grow well. — Düyünün yaxşı böyüməsi üçün isti və rütubətli iqlim lazımdır.","The <em>climate</em> in tropical countries is perfect for growing bananas. — Tropik ölkələrin iqlimi banan yetişdirmək üçün mükəmməldir.","A changing <em>climate</em> makes it harder for farmers to grow food. — Dəyişən iqlim fermerlərə qida yetişdirməyi çətinləşdirir."]},
+  {en:"in advance",az:"əvvəlcədən; öncədən",pos:"zərf",cat:"cooking",sentences:["You can make lasagna <em>in advance</em> and keep it in the fridge. — Lazanyanı əvvəlcədən hazırlayıb soyuducuda saxlaya bilərsiniz.","It is good to plan your meals <em>in advance</em> to eat healthily. — Sağlam qidalanmaq üçün yeməklərinizi əvvəlcədən planlaşdırmaq yaxşıdır.","She always buys her ingredients <em>in advance</em> on weekends. — O həmişə həftə sonlarında inqredientlərini əvvəlcədən alır."]},
+  {en:"occasion",az:"hadisə; xüsusi gün; münasibət",pos:"isim",cat:"food",sentences:["We eat this special food only on special <em>occasions</em> like weddings. — Bu xüsusi yeməyi yalnız toy kimi xüsusi günlərdə yeyirik.","A birthday is a perfect <em>occasion</em> to bake a cake. — Ad günü tort bişirmək üçün mükəmməl bir münasibətdir.","They always cook couscous on <em>occasions</em> like family gatherings. — Onlar həmişə ailə yığıncaqları kimi münasibətlərdə kuskus bişirirlər."]},
+  {en:"supporting details",az:"dəstəkləyici detallar",pos:"söz birləşməsi",cat:"food",sentences:["<em>Supporting details</em> help the reader believe the writer's main idea. — Dəstəkləyici detallar oxucuya yazıçının əsas fikrini inandırmağa kömək edir.","Give three <em>supporting details</em> in your paragraph. — Paraqrafınızda üç dəstəkləyici detal verin.","The <em>supporting details</em> include facts, examples, and reasons. — Dəstəkləyici detallar faktları, nümunələri və səbəbləri ehtiva edir."]},
+  {en:"bake",az:"sobada bişirmək",pos:"fel",cat:"cooking",sentences:["She loves to <em>bake</em> bread every Sunday morning. — O hər bazar günü səhər çörək bişirməyi seviir.","The baker <em>bakes</em> many different types of bread every day. — Çörəkçi hər gün bir çox müxtəlif növ çörək bişirir.","You need to <em>bake</em> the lasagna for 40 minutes at 180 degrees. — Lazanyanı 180 dərəcədə 40 dəqiqə sobada bişirmək lazımdır."]},
+  {en:"dough",az:"xəmir",pos:"isim",cat:"cooking",sentences:["The baker kneads the <em>dough</em> before putting it in the oven. — Çörəkçi xəmiri sobaya qoymadan əvvəl yoğurur.","Bread <em>dough</em> needs time to rise before baking. — Çörək xəmiri bişirməzdən əvvəl qabarmaq üçün vaxta ehtiyac duyur.","She made pizza <em>dough</em> from flour, water, and yeast. — O, un, su və maya ilə pizza xəmiri hazırladı."]},
+  {en:"loaf",az:"somun; çörək (bütöv)",pos:"isim",cat:"cooking",sentences:["She bought a fresh <em>loaf</em> of bread at the bakery. — O çörəkxanada təzə bir somun aldı.","The baker makes 50 <em>loaves</em> of bread every morning. — Çörəkçi hər səhər 50 somun çörək bişirir.","We ate a whole <em>loaf</em> of bread with the soup. — Şorba ilə bütöv bir somun çörək yedik."]},
+  {en:"experiment",az:"təcrübə; sınaq",pos:"isim",cat:"cooking",sentences:["Baking bread feels like an <em>experiment</em> — you try and learn. — Çörək bişirmək bir təcrübəyə bənzəyir — sınayırsınız və öyrənirsiniz.","The chef did an <em>experiment</em> with new spices in the recipe. — Aşpaz reseptdə yeni ədviyyatlarla sınaq apardı.","Cooking is an <em>experiment</em>: sometimes it works, sometimes it doesn't. — Bişirmə bir təcrübədir: bəzən alınır, bəzən yox."]},
+  {en:"nail it",az:"mükəmməl bacarmaq",pos:"idiom",cat:"cooking",sentences:["After many tries, she finally <em>nailed it</em> and made perfect bread. — Bir çox cəhddən sonra o nəhayət mükəmməl çörək bişirdi.","He <em>nailed it</em> on his first attempt at making sushi. — O, suşi hazırlamağın ilk cəhdindəcə mükəmməl bacardı.","Practice every day and soon you will <em>nail it</em>. — Hər gün məşq edin və tezliklə tam bacaracaqsınız."]},
+  {en:"sweet spot",az:"ideal nöqtə; ən yaxşı yer",pos:"isim",cat:"food",sentences:["A café can be a <em>sweet spot</em> to study — not too noisy, not too quiet. — Kafe öyrənmək üçün ideal bir yer ola bilər.","Finding the <em>sweet spot</em> in cooking means getting the temperature just right. — Bişirmədə ideal nöqtəni tapmaq temperaturu tam düzgün ayarlamaq deməkdir.","The <em>sweet spot</em> for a healthy diet is balance — not too strict. — Sağlam pəhriz üçün ideal nöqtə tarazlıqdır."]},
+  {en:"couscous",az:"kuskus (Şimali Afrika yeməyi)",pos:"isim",cat:"food",sentences:["<em>Couscous</em> is made from wheat and is very popular in North Africa. — Kuskus buğdadan hazırlanır və Şimali Afrikada çox populyardır.","She puts vegetables and some kind of sauce on top of the <em>couscous</em>. — O, kuskusun üstünə tərəvəzlər və bir növ sous qoyur.","My great-uncle learned to cook <em>couscous</em> from his mother. — Ulu əmim kuskus bişirməyi anasından öyrəndi."]},
+  {en:"seafood",az:"dəniz məhsulları",pos:"isim",cat:"food",sentences:["Greece is famous for its delicious <em>seafood</em> dishes. — Yunanıstan dadlı dəniz məhsulları xörəkləri ilə məşhurdur.","We ate fresh <em>seafood</em> — shrimp, fish, and squid — at the restaurant. — Restoranda təzə dəniz məhsulları yedik.","Some people are allergic to <em>seafood</em> and must avoid it. — Bəzi insanlar dəniz məhsullarına allergiyası var."]},
+  {en:"lamb",az:"quzu əti",pos:"isim",cat:"food",sentences:["We had roasted <em>lamb</em> with herbs for dinner. — Şam yeməyinə ədviyyatlı qovrulmuş quzu əti yedik.","<em>Lamb</em> is very popular in Middle Eastern cooking. — Quzu əti Orta Şərq mətbəxində çox populyardır.","She tried <em>lamb</em> for the first time when she visited Athens. — O, Afinaya səfər etdikdə ilk dəfə quzu əti sınadı."]},
+  {en:"introduce",az:"tanış etmək; təqdim etmək",pos:"fel",cat:"food",sentences:["My friend <em>introduced</em> me to many new foods when I visited her country. — Dostum ölkəsini ziyarət etdiyimdə məni bir çox yeni qidalarla tanış etdi.","The chef wants to <em>introduce</em> traditional Azerbaijani dishes to tourists. — Aşpaz turistlərə ənənəvi Azərbaycan xörəklərini təqdim etmək istəyir.","Travel is a great way to <em>introduce</em> yourself to new flavours. — Səyahət özünüzü yeni dadlarla tanış etmək üçün əla bir yoldur."]},
+  {en:"try",az:"sınamaq; cəhd etmək",pos:"fel",cat:"food",sentences:["You should <em>try</em> this dish — it is delicious! — Bu xörəyi sınamalısınız — çox dadlıdır!","She is not afraid to <em>try</em> new and unusual foods. — O, yeni və qeyri-adi qidaları sınamaqdan qorxmur.","I <em>tried</em> sushi for the first time last year and loved it. — Keçən il ilk dəfə suşi sınadım və çox bəyəndim."]},
+  {en:"order",az:"sifariş etmək; sifariş",pos:"fel/isim",cat:"food",sentences:["When I was a child, I always <em>ordered</em> pizza at restaurants. — Uşaq ikən restoranlarda həmişə pizza sifariş edirdim.","She <em>ordered</em> a big salad and a glass of water. — O, böyük bir salat və bir stəkan su sifariş etdi.","What would you like to <em>order</em> today? — Bu gün nə sifariş etmək istərdiniz?"]},
+  {en:"buy",az:"almaq; satın almaq",pos:"fel",cat:"food",sentences:["I <em>bought</em> fresh vegetables at the farmers' market yesterday. — Dünən fermer bazarında təzə tərəvəzlər aldım.","It is healthier to <em>buy</em> local food than imported food. — Yerli qida almaq idxal edilmiş qidadan daha sağlamlıdır.","She went to the grocery store to <em>buy</em> ingredients for dinner. — O, şam yeməyi üçün inqredient almaq üçün ərzaq mağazasına getdi."]},
+  {en:"healthy",az:"sağlam; faydalı",pos:"sifət",cat:"nutrition",sentences:["Eating vegetables every day is a very <em>healthy</em> habit. — Hər gün tərəvəz yemək çox sağlam bir vərdişdir.","She tries to make <em>healthy</em> choices at every meal. — O, hər yemək zamanı sağlam seçimlər etməyə çalışır.","A <em>healthy</em> diet includes protein, vitamins, and plenty of water. — Sağlam pəhriz protein, vitaminlər və bol su ehtiva edir."]},
+  {en:"natural",az:"təbii; natural",pos:"sifət",cat:"diet",sentences:["People on a paleo diet prefer <em>natural</em> foods without additives. — Paleo pəhrizindəki insanlar əlavəsiz təbii qidaları üstün tuturlar.","Honey is a <em>natural</em> sweetener that is healthier than white sugar. — Bal ağ şəkərdən daha sağlam olan təbii bir şirinləşdiricidir.","<em>Natural</em> food from farmers' markets is fresher than supermarket food. — Fermer bazarlarındakı təbii qida supermarket qidasından daha təzədir."]},
+  {en:"disease",az:"xəstəlik",pos:"isim",cat:"nutrition",sentences:["A poor diet can lead to serious <em>diseases</em> like diabetes. — Pis pəhriz diabet kimi ciddi xəstəliklərə gətirib çıxara bilər.","Eating well helps your body fight <em>disease</em>. — Yaxşı qidalanmaq bədəninizin xəstəliklərə qarşı mübarizəsinə kömək edir.","Heart <em>disease</em> is linked to eating too much salt and fat. — Ürək xəstəliyi çox duz və yağ istehlakı ilə bağlıdır."]},
+  {en:"solution",az:"həll; çözüm",pos:"isim",cat:"diet",sentences:["Some people believe the paleo diet is a <em>solution</em> to modern health problems. — Bəzi insanlar paleo pəhrizinin müasir sağlamlıq problemlərinin həlli olduğuna inanır.","There is no single <em>solution</em> to eating healthily — it takes effort. — Sağlam qidalanmaq üçün tək bir həll yolu yoxdur.","Cooking at home is a good <em>solution</em> if you want to control what you eat. — Evdə bişirmək nə yediyinizi idarə etmək istəyirsinizsə yaxşı bir həll yoludur."]},
+  {en:"trend",az:"tendensiya; moda",pos:"isim",cat:"diet",sentences:["The paleo diet is a popular <em>trend</em> among health-conscious people. — Paleo pəhrizi sağlamlığa diqqət yetirən insanlar arasında populyar bir tendensiyadır.","Food <em>trends</em> change every few years — today it's vegan, tomorrow something else. — Qida tendensiyaları hər bir neçə ildə dəyişir.","She always follows the latest <em>trends</em> in healthy eating. — O həmişə sağlam qidalanmadakı son tendensiyaları izləyir."]},
+  {en:"low-calorie",az:"az kalorili",pos:"sifət",cat:"diet",sentences:["Many people choose <em>low-calorie</em> foods to manage their weight. — Bir çox insan çəkilərini idarə etmək üçün az kalorili qidalar seçir.","Salad is usually a <em>low-calorie</em> meal if you don't add too much dressing. — Salat, çox sous əlavə etməsəniz, az kalorili bir yeməkdir.","She replaced soda with water as a <em>low-calorie</em> drink option. — O, qazlı içkini az kalorili içki seçimi olaraq suyla əvəz etdi."]},
+  {en:"raw",az:"çiy; emal olunmamış",pos:"sifət",cat:"cooking",sentences:["Some people eat <em>raw</em> vegetables because cooking destroys some vitamins. — Bəzi insanlar çiy tərəvəz yeyir, çünki bişirmə bəzi vitaminləri məhv edir.","The paleo diet includes a lot of <em>raw</em> and unprocessed foods. — Paleo pəhrizi çoxlu çiy və emal olunmamış qidaları ehtiva edir.","Never eat <em>raw</em> chicken — it can make you very sick. — Heç vaxt çiy toyuq yeməyin."]},
+  {en:"farming",az:"əkinçilik; fermerlik",pos:"isim",cat:"farming",sentences:["<em>Farming</em> began about 12,000 years ago when humans started growing crops. — Əkinçilik təxminən 12.000 il əvvəl başladı.","Modern <em>farming</em> produces large amounts of food but uses many chemicals. — Müasir əkinçilik çoxlu qida istehsal edir, lakin çoxlu kimyəvi maddə işlədir.","Rice <em>farming</em> requires a lot of water and warm weather. — Düyü əkinçiliyi çoxlu su və isti hava tələb edir."]},
+  {en:"delicious",az:"dadlı; ləzzətli",pos:"sifət",cat:"food",sentences:["The couscous my aunt made was absolutely <em>delicious</em>. — Bibimin hazırladığı kuskus tamamilə dadlı idi.","This restaurant is famous for its <em>delicious</em> seafood pasta. — Bu restoran dadlı dəniz məhsulları pastası ilə məşhurdur.","She made a <em>delicious</em> cake for the birthday party. — O, ad günü partiyası üçün dadlı bir tort bişirdi."]},
+  {en:"social event",az:"sosial tədbir; ictimai hadisə",pos:"söz birləşməsi",cat:"food",sentences:["Food is always an important part of any <em>social event</em>. — Qida həmişə istənilən sosial tədbirın mühüm hissəsidir.","A dinner party is a popular <em>social event</em> where people share food. — Şam yeməyi ziyafəti insanların qida paylaşdığı populyar bir sosial tədbirdir.","At every <em>social event</em> in our culture, there is a big table of food. — Mədəniyyətimizdəki hər sosial tədbirдə böyük bir qida masası olur."]},
+  {en:"share",az:"bölüşmək; paylaşmaq",pos:"fel",cat:"food",sentences:["When you <em>share</em> food with someone, you can say: 'You should try this!' — Birisi ilə qida paylaşdığınızda deyə bilərsiniz: 'Bunu sınamalısınız!'","In many cultures, people <em>share</em> large dishes at the table. — Bir çox mədəniyyətdə insanlar masada böyük qabları paylaşırlar.","She always <em>shares</em> her homemade food with her colleagues. — O həmişə ev bişirməsini iş yoldaşları ilə paylaşır."]},
+  {en:"brainstorm",az:"beyin fırtınası; fikir toplamaq",pos:"fel/isim",cat:"food",sentences:["Let's <em>brainstorm</em> ideas for the writing topic about food habits. — Gəlin qida vərdişləri haqqındakı yazı mövzusu üçün ideyaları toplayaq.","The group <em>brainstormed</em> many ideas about healthy eating. — Qrup sağlam qidalanma haqqında bir çox fikir topladı.","A good way to start a paragraph is to <em>brainstorm</em> supporting details first. — Paraqrafa başlamağın yaxşı yolu əvvəlcə dəstəkləyici detalları toplamaqdan keçir."]}
 ];
 
-let currentCat = 'all';
+// ══════════════════════════════════════
+//  VOCAB RENDER
+// ══════════════════════════════════════
 let currentSearch = '';
-
 function renderGrid() {
-  const grid = document.getElementById('grid');
-  const noResults = document.getElementById('noResults');
   const filtered = words.filter(w => {
-    const matchCat = currentCat === 'all' || w.cat === currentCat;
-    const q = currentSearch.toLowerCase();
-    const matchSearch = !q || w.en.toLowerCase().includes(q) || w.az.toLowerCase().includes(q);
-    return matchCat && matchSearch;
+    const mc = currentCat === 'all' || w.cat === currentCat;
+    const q  = currentSearch.toLowerCase();
+    const ms = !q || w.en.toLowerCase().includes(q) || w.az.toLowerCase().includes(q);
+    return mc && ms;
   });
-
   document.getElementById('totalCount').textContent = filtered.length;
-
-  if (filtered.length === 0) {
-    grid.innerHTML = '';
-    noResults.style.display = 'block';
-    return;
-  }
-  noResults.style.display = 'none';
-
-  grid.innerHTML = filtered.map(w => `
-    <div class="word-card" onclick="openModal('${w.en.replace(/'/g,"\\'")}')">
-      <span class="cat-badge">${catLabel(w.cat)}</span>
-      <div class="word-en">${w.en}</div>
-      <div class="word-pos">${w.pos}</div>
-      <div class="word-az">${w.az}</div>
-      <div class="word-hint">Basaraq cümlələrə bax →</div>
-    </div>
-  `).join('');
+  const noR = document.getElementById('noResults');
+  if (!filtered.length) { document.getElementById('grid').innerHTML=''; noR.style.display='block'; return; }
+  noR.style.display = 'none';
+  const catIco = {food:'🥗',nutrition:'🧬',farming:'🌾',cooking:'👩‍🍳',diet:'💚'};
+  document.getElementById('grid').innerHTML = filtered.map(w => `
+    <div class="word-card" onclick="openWord('${w.en.replace(/'/g,"\\'")}')">
+      <span class="cat-badge">${catIco[w.cat]||'📚'}</span>
+      <div class="w-en">${w.en}</div>
+      <div class="w-pos">${w.pos}</div>
+      <div class="w-az">${w.az}</div>
+      <div class="w-hint">Basaraq cümlələrə bax →</div>
+    </div>`).join('');
 }
+document.getElementById('searchInput').addEventListener('input', e => { currentSearch = e.target.value; renderGrid(); });
 
-function catLabel(cat) {
-  const m = {food:'🥗',nutrition:'🧬',farming:'🌾',cooking:'👩‍🍳',diet:'💚'};
-  return m[cat] || '📚';
-}
-
-function filterCat(cat, el) {
-  currentCat = cat;
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  renderGrid();
-}
-
-document.getElementById('searchInput').addEventListener('input', e => {
-  currentSearch = e.target.value;
-  renderGrid();
-});
-
-function openModal(wordEn) {
-  const w = words.find(x => x.en === wordEn);
-  if (!w) return;
+function openWord(en) {
+  const w = words.find(x => x.en === en); if (!w) return;
   document.getElementById('mWord').textContent = w.en;
-  document.getElementById('mPos').textContent = w.pos;
-  document.getElementById('mAz').textContent = '🇦🇿 ' + w.az;
-  document.getElementById('mSentences').innerHTML = w.sentences.map(s =>
-    `<div class="sentence-item">${s}</div>`
-  ).join('');
-  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('mPos').textContent  = w.pos;
+  document.getElementById('mAz').textContent   = '🇦🇿 ' + w.az;
+  document.getElementById('mSents').innerHTML  = w.sentences.map(s=>`<div class="sent">${s}</div>`).join('');
+  document.getElementById('overlay').classList.add('open');
+}
+function closeOverlay(e) { if(e.target===document.getElementById('overlay')) document.getElementById('overlay').classList.remove('open'); }
+document.addEventListener('keydown', e => { if(e.key==='Escape') document.getElementById('overlay').classList.remove('open'); });
+renderGrid();
+
+// ══════════════════════════════════════
+//  FILL IN
+// ══════════════════════════════════════
+const fillData = [
+  {s:"She ___ (eat) breakfast every morning.",ans:"eats",hint:"Simple Present, he/she/it → +s",az:"O hər səhər səhər yeməyi yeyir."},
+  {s:"Right now my father ___ (prepare) a special dish.",ans:"is preparing",hint:"Present Continuous: is/am/are + V-ing",az:"İndi atam xüsusi bir xörək hazırlayır."},
+  {s:"We ___ (learn) how to cook pizza yesterday.",ans:"learned",hint:"Simple Past, regular: learn → learned",az:"Dünən pizza bişirməyi öyrəndik."},
+  {s:"I ___ (not eat) meat. I am vegetarian.",ans:"don't eat",hint:"Simple Present mənfi: don't + V",az:"Ət yemirəm. Mən vegetarianam."},
+  {s:"They ___ (go) to Greece last year.",ans:"went",hint:"Simple Past, irregular: go → went",az:"Keçən il Yunanıstana getdilər."},
+  {s:"Our class ___ (be) very interesting last week.",ans:"was",hint:"Simple Past of 'be' → was",az:"Keçən həftə dərsimiz çox maraqlı idi."},
+  {s:"I ___ (watch) a cooking video right now.",ans:"am watching",hint:"Present Continuous: am + V-ing",az:"İndi bişirmə videosu izləyirəm."},
+  {s:"Fresh vegetables ___ (be) always available at the market.",ans:"are",hint:"Simple Present, plural → are",az:"Təzə tərəvəzlər həmişə bazarda mövcuddur."},
+  {s:"She ___ (buy) new ingredients at the market yesterday.",ans:"bought",hint:"Simple Past, irregular: buy → bought",az:"O dünən bazarda yeni inqredientlər aldı."},
+  {s:"___ she ___ (follow) a special diet?",ans:"Does / follow",hint:"Simple Present sual: Does + S + V?",az:"O xüsusi bir pəhrizə əməl edirmi?"},
+];
+(function buildFill(){
+  document.getElementById('fillContainer').innerHTML = fillData.map((f,i)=>`
+    <div class="f-card">
+      <div class="f-num">Cümlə ${i+1}</div>
+      <div class="f-sent">${f.s.replace('___',`<input class="f-inp" id="fi${i}" placeholder="yazın..." autocomplete="off">`)}</div>
+      <div style="font-size:12px;color:var(--muted);font-style:italic;">${f.az}</div>
+      <div class="f-hint" id="fh${i}">💡 İpucu: ${f.hint}</div>
+    </div>`).join('');
+})();
+function checkAll(){
+  let c=0;
+  fillData.forEach((f,i)=>{
+    const inp=document.getElementById('fi'+i), hint=document.getElementById('fh'+i);
+    inp.classList.remove('correct','wrong');
+    if(inp.value.trim().toLowerCase()===f.ans.toLowerCase()){inp.classList.add('correct');c++;hint.classList.remove('show');}
+    else{inp.classList.add('wrong');hint.classList.add('show');inp.value='';inp.placeholder=f.ans;}
+  });
+  const el=document.getElementById('fillScore');
+  el.style.display='block';
+  const pct=Math.round(c/fillData.length*100);
+  el.textContent=`${pct===100?'🏆':pct>=70?'👏':'💪'} ${c}/${fillData.length} düzgün — ${pct}%`;
 }
 
-function closeModal(e) {
-  if (e.target === document.getElementById('modalOverlay')) {
-    document.getElementById('modalOverlay').classList.remove('open');
+// ══════════════════════════════════════
+//  QUIZ
+// ══════════════════════════════════════
+const quizData=[
+  {q:"She ___ vegetables every day. (habit)",opts:["eat","eats","is eating","ate"],ans:1,exp:"Simple Present, 3rd person → eats"},
+  {q:"Right now, I ___ lunch at a restaurant.",opts:["eat","ate","am eating","eats"],ans:2,exp:"Present Continuous: am + eating (indi baş verir)"},
+  {q:"They ___ pizza yesterday.",opts:["eat","eats","are eating","ate"],ans:3,exp:"Simple Past, irregular: eat → ate"},
+  {q:"I ___ meat. I am vegetarian.",opts:["don't eat","doesn't eat","am not eating","didn't ate"],ans:0,exp:"Simple Present mənfi: don't + V"},
+  {q:"___ she follow a special diet?",opts:["Is","Do","Does","Did"],ans:2,exp:"Simple Present sual, 3rd person: Does + she + V?"},
+  {q:"We ___ how to cook couscous last year.",opts:["learn","are learning","learned","learns"],ans:2,exp:"Simple Past, regular: learn → learned"},
+  {q:"My father ___ a special dish for dinner tonight.",opts:["prepares","is preparing","prepared","prepare"],ans:1,exp:"Present Continuous: indi baş verir → is preparing"},
+  {q:"Fresh vegetables ___ always available at the market.",opts:["is","was","are","were"],ans:2,exp:"Simple Present, plural subject → are"},
+  {q:"She ___ to Greece last summer.",opts:["goes","is going","go","went"],ans:3,exp:"Simple Past, irregular: go → went"},
+  {q:"I usually ___ eggs, but today I ___ oatmeal.",opts:["eat / am eating","ate / eat","am eating / eat","eat / ate"],ans:0,exp:"Vərdiş: Simple Present; İndi: Present Continuous"},
+  {q:"Our class ___ very interesting last week.",opts:["is","are","was","were"],ans:2,exp:"Simple Past of 'be', singular → was"},
+  {q:"___ you eating right now?",opts:["Do","Are","Did","Does"],ans:1,exp:"Present Continuous sual: Are + you + V-ing?"},
+  {q:"She ___ a big meal in the afternoon every day.",opts:["is eating","eats","ate","eat"],ans:1,exp:"Simple Present: gündəlik vərdiş, 3rd person → eats"},
+  {q:"They ___ new foods when they visited Athens.",opts:["try","tries","are trying","tried"],ans:3,exp:"Simple Past, regular: try → tried"},
+  {q:"I ___ (not) like sugar in my tea.",opts:["don't","doesn't","am not","didn't"],ans:0,exp:"Simple Present mənfi, 1st person: don't + V"},
+];
+let answered=[];
+function buildQuiz(){
+  answered=new Array(quizData.length).fill(false);
+  document.getElementById('quizContainer').innerHTML=quizData.map((q,i)=>`
+    <div class="q-card">
+      <div class="q-num">Sual ${i+1} / ${quizData.length}</div>
+      <div class="q-text">${q.q.replace('___','<span class="blank">___</span>')}</div>
+      <div class="opts">${q.opts.map((o,j)=>`<button class="opt" id="ob${i}_${j}" onclick="ansQ(${i},${j})">${o}</button>`).join('')}</div>
+      <div class="q-fb" id="qf${i}"></div>
+    </div>`).join('');
+  document.getElementById('quizScore').classList.remove('show');
+}
+function ansQ(qi,oi){
+  if(answered[qi])return; answered[qi]=true;
+  const q=quizData[qi], fb=document.getElementById('qf'+qi);
+  for(let j=0;j<q.opts.length;j++){
+    const b=document.getElementById(`ob${qi}_${j}`); b.disabled=true;
+    if(j===q.ans)b.classList.add('correct');
+    else if(j===oi)b.classList.add('wrong');
+  }
+  fb.classList.add('show');
+  if(oi===q.ans){fb.classList.add('ok');fb.textContent='✅ Düzdür! '+q.exp;}
+  else{fb.classList.add('fail');fb.textContent='❌ Səhv. Düzgün: "'+q.opts[q.ans]+'" — '+q.exp;}
+  if(answered.every(Boolean)){
+    let c=0;
+    quizData.forEach((q,i)=>{const aw=q.opts.some((_,j)=>j!==q.ans&&document.getElementById(`ob${i}_${j}`).classList.contains('wrong'));if(!aw)c++;});
+    const pct=Math.round(c/quizData.length*100);
+    document.getElementById('scoreNum').textContent=c+' / '+quizData.length;
+    document.getElementById('scoreLabel').textContent=(pct===100?'🏆 Mükəmməl!':pct>=80?'👏 Əla!':pct>=60?'👍 Yaxşıdır!':'💪 Daha çox məşq et!')+' ('+pct+'%)';
+    document.getElementById('quizScore').classList.add('show');
   }
 }
-function closeModalBtn() {
-  document.getElementById('modalOverlay').classList.remove('open');
-}
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.getElementById('modalOverlay').classList.remove('open');
-});
-
-renderGrid();
+buildQuiz();
 </script>
 </body>
 </html>
